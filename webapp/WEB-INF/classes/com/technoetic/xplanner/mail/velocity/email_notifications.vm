@@ -1,0 +1,28 @@
+#set ($acceptorName = "")
+<html>
+<head>
+   <style>
+      $style
+   </style>
+</head>
+<body>
+$header<br><br>
+<table class="objecttable">
+   <thead><tr><th>$storyLabel</th><th>$taskLabel</th></tr><thead>
+   <tbody>
+   #foreach( $entry in $bodyEntries )
+      #if( $entry.size() > 2 && $entry.get(2) != $acceptorName )
+         #set( $acceptorName = $entry.get(2) )
+         <tr><td colspan="2"><b>$acceptorName:</b></td></tr>
+      #end
+      <tr>
+         <td><a href="$hostUrl/do/view/userstory?oid=$entry.get(1).id">$entry.get(1).name</a></td>
+         <td><a href="$hostUrl/do/view/task?oid=$entry.get(0).id">$entry.get(0).name</a></td>
+      </tr>
+    #end
+    </tbody>
+</table>
+<br>
+$footer
+</body>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+       "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+       "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+
+    <!-- ========== Form Bean Definitions =================================== -->
+    <form-beans type="org.apache.struts.action.ActionFormBean">
+    </form-beans>
+
+
+    <!-- ========== Global Forward Definitions ============================== -->
+    <global-forwards type="org.apache.struts.action.ActionForward">
+    </global-forwards>
+
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings type="org.apache.struts.action.ActionMapping">
+
+      <action path="/mobile/login" parameter="mobile/login"
+          type="com.technoetic.xplanner.actions.AuthenticationAction" name="login/authenticate">
+          <forward name="mobile/login" path="/WEB-INF/jsp/wap/login.jsp"/>
+          <forward name="notAuthenticated" path="/WEB-INF/jsp/wap/login.jsp"/>
+          <forward name="authenticated" path="/do/mobile/view/projects" redirect="true"/>
+      </action>
+
+      <action path="/mobile/view/projects" parameter="mobile/view/projects" type="com.technoetic.xplanner.actions.DispatchForward">
+          <forward name="mobile/view/projects" path="/WEB-INF/jsp/wap/projects.jsp"/>
+      </action>
+
+      <action path="/mobile/view/project" parameter="mobile/view/project" type="com.technoetic.xplanner.actions.DispatchForward">
+          <forward name="mobile/view/project" path="/WEB-INF/jsp/wap/project.jsp"/>
+      </action>
+
+      <action path="/mobile/view/iteration" parameter="mobile/view/iteration" type="com.technoetic.xplanner.actions.DispatchForward">
+          <forward name="mobile/view/iteration" path="/WEB-INF/jsp/wap/iteration.jsp"/>
+      </action>
+
+      <action path="/mobile/view/story" parameter="mobile/view/story" type="com.technoetic.xplanner.actions.DispatchForward">
+          <forward name="mobile/view/story" path="/WEB-INF/jsp/wap/story.jsp"/>
+      </action>
+
+      <action path="/mobile/view/task" parameter="mobile/view/task" type="com.technoetic.xplanner.actions.DispatchForward">
+          <forward name="mobile/view/task" path="/WEB-INF/jsp/wap/task.jsp"/>
+      </action>
+
+      <action path="/mobile/view/person" parameter="mobile/view/person" type="com.technoetic.xplanner.actions.DispatchForward">
+          <forward name="mobile/view/person" path="/WEB-INF/jsp/wap/person.jsp"/>
+      </action>
+
+  </action-mappings>
+
+</struts-config>

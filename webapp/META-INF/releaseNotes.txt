@@ -1,0 +1,46 @@
+Release notes:
+---------------------------------------------------------------------
+ Upcomming Release
+---------------------------------------------------------------------
+  * Upgrade to hibernate 3 and hibernate annotations
+  * Upgrade to spring 2.5
+
+---------------------------------------------------------------------
+Release 1.0.b3
+---------------------------------------------------------------------
+  * Fixed jrpdf export. Updated jasper.
+  * Fixed design in majority of browsers (IE7-8, Firefox 3.5)
+  * Fixed javascript error on projects page
+---------------------------------------------------------------------
+Release 1.0.b2
+---------------------------------------------------------------------
+  * Removed struts-spring-plugin
+  * A lot of small design fixes.
+  * Removed print button. Print from now will be handled by styles. 
+
+---------------------------------------------------------------------
+Release 1.0.b1
+---------------------------------------------------------------------
+  * Fixed incorrect url for tiles dtd
+  * Fixed problem with changing
+  * Improved design 
+  
+---------------------------------------------------------------------
+Release 1.0.a5
+---------------------------------------------------------------------
+ * Corrected classpath to better support tomcat5.5
+ * Fixed exception on any page contains notes in tomcat5.5, and on people page
+ * Fixed log4j configuration problem, when logging starts before application
+
+---------------------------------------------------------------------
+Release 1.0.a4
+---------------------------------------------------------------------
+ * Rewritten breadcrumb navigator
+ * Fixed element of old design on several pages
+ * Moved links for editing, deleting current object to place where is object is displayed 
+
+---------------------------------------------------------------------
+Release 1.0.a3
+---------------------------------------------------------------------
+ * Now default database is HSQLDB on file system
+ * Improved design on task page, move/continue task page, add attachment page and add person page

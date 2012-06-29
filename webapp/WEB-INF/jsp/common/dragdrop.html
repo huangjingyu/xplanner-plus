@@ -1,0 +1,249 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!doctype html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="http://code.jquery.com/jquery-1.4.4.js"></script>
+
+        <style>
+        *{
+            padding:0px;
+            margin:0px;
+        }
+        html,body, #container{
+            height:100%;
+            -webkit-user-select: none;
+        }
+        #left, #mid, #right {
+            width:33%;
+            border: 1px solid red;
+            float:left;
+            height:100%;
+        }
+        .ticket{
+            width:200px;
+            height:150px;
+            background-color: green;
+            cursor: pointer;
+            float:left;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            margin:0px 5px 10px 2px;    
+        }
+        .transit{
+
+        }
+        .dragable{
+            position:absolute;
+            background-color: red;
+        }
+
+
+
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id ="left">
+                <div class="ticket">
+                    <p>111111111111111Name</p>
+                    <p>Name</p>
+                    <p>Name</p>
+                </div>     
+                <div class="ticket">
+                    <p>22222222222222222Name</p>
+                    <p>Name</p>
+                    <p>Name</p>
+                </div>  
+                <div class="ticket">
+                    <p>333333333333333333333Name</p>
+                    <p>Name</p>
+                    <p>Name</p>
+                </div>  
+                <div class="ticket">
+                    <p>44444444444444444Name</p>
+                    <p>Name</p>
+                    <p>Name</p>
+                </div>  
+                <div class="ticket">
+                    <p>5555555555555555Name</p>
+                    <p>Name</p>
+                    <p>Name</p>
+                </div>  
+            </div>
+            <div id ="mid">
+                <div class="ticket">
+                    <p>11111____22Name</p>
+                    <p>Name</p>
+                    <p>Name</p>
+                </div>  
+            </div>
+            <div id ="right">
+                <div class="ticket">
+                    <p>###3333333333333333333</p>
+                    <p>Name</p>
+                    <p>Name</p>
+                </div>  
+            </div>
+        </div> 
+
+
+
+        <script>
+
+
+
+          
+            trackMouse();
+            
+            
+            
+            
+            function trackMouse(){
+                
+                var position;
+                var coordsX;
+                var coordsY;
+                var mid;          
+                var draggable;   
+                var ifInSameColumn;
+                          
+                var mid = {
+                    //positionWas: $("#mid").offset().left,
+                    position : $("#mid").offset().left,
+                    top: $("#mid").offset().top,
+                    title : $("#mid")
+                } 
+                   
+                var right = {
+                    //positionWas: $("#right").offset().left,
+                    position: $("#right").offset().left,
+                    top: $("#right").offset().top,
+                    title : $("#right")
+                }
+                
+                var left = { 
+                    //positionWas: $("#left").offset().left,
+                    position : $("#left").offset().left,
+                    top: $("#left").offset().top,
+                    title : $("#left")
+                }
+                
+                var drag;
+                
+                $(".ticket").mousedown(function(e){
+                	 console.log("drag");
+                    //console.log(e.screenX, e.screenY);
+                    //console.log(e.clientX, e.clientY);
+                    //console.log(e.screenY - e.clientY);
+                    var target = $(e.currentTarget);
+                    var draggable = target.clone();                   
+                    draggable.addClass("dragable");
+                    $("body").append(draggable);
+                    var offset = target.offset();
+                    var offsetX = e.clientX - offset.left;
+                    var offsetY = e.clientY - offset.top;
+                    
+                    
+                    console.log(offset.left, "\\\\\\\\\\");
+                    
+                    //draggable.css("left", e.clientX);
+                    //draggable.css("top", e.clientY);
+                    
+                    target.css("visibility","hidden");
+                    draggable.css("left", offset.left);
+                    draggable.css("top", offset.top);
+                    
+                    
+                    
+                    if(offset.left > mid.position && event.clientX < right.position){
+                        drag = mid;
+                    }else if (offset.left > right.position) {
+                        drag = right;
+                    }else{
+                        drag = left;
+                    }
+                    
+                    
+                    // currentY = event.clientY;
+                    
+                    $("body").mousemove(function(event){
+                        coordsX =  event.clientX - offsetX;
+                        coordsY =  event.clientY - offsetY;
+                        draggable.css("left", coordsX);
+                        draggable.css("top", coordsY);
+                        //!!!!!!!! console.log(offsetX, offsetY, ">")
+                        if (coordsY>(offset.top-30)&& coordsY<(offset.top+30)){                          
+                           
+                        }   else {
+                                 
+                        }
+                      
+                    })
+                    
+                    $("body").mouseup(function(event){
+                        $("body").unbind();
+                        
+                        function transition(column){
+                            if (drag.title == column.title){
+                            } else {
+                                column.title.append(target);
+                            }
+                              draggable.bind("webkitTransitionEnd",function(){
+                            //draggable.bind("transitionend",function(){                            
+                                console.log("ended");
+                                target.css("visibility","visible");
+                                draggable.remove(); //!!!!!!!!!!!!!!!!
+                            });
+                            draggable.css("-webkit-transition", "all 0.6s ease-in-out");
+                            draggable.css("-moz-transition", "all 0.6s ease-in-out");
+                            draggable.css("-o-transition", "all 0.6s ease-in-out");
+                          
+                            console.log($(document).scrollTop() + event.clientY, target.offset().top + target.height()/2);
+                            if($(document).scrollTop() + event.clientY < $(column.title.children()[0]).height()/2){
+                                column.title.prepend(target);
+                                //currentSticker.before(target);
+                            } else if($(document).scrollTop() + event.clientY > (target.offset().top - target.height()/2) && $(document).scrollTop()+ event.clientY < (target.offset().top + target.height() + target.height()/2)){
+                                console.log("he")
+                            } else {
+                                var matched = false;
+                                for(i=0; i<column.title.children().length-1; i++){
+                                    var currentSticker = $(column.title.children()[i]);
+                                    
+                                    
+                                    var isAfterCurrentSticker = $(document).scrollTop() + event.clientY > (currentSticker.offset().top + currentSticker.height()/2);
+                                    var nextSticker = $(column.title.children()[i+1]);
+                                    var isBeforeNextSticker = $(document).scrollTop() +  event.clientY < (nextSticker.offset().top + nextSticker.height()/2);
+                                
+                                    console.log(i,currentSticker.offset().top,nextSticker.offset().top);
+                                    if(isAfterCurrentSticker && isBeforeNextSticker){
+                                        currentSticker.after(target);
+                                        matched = true;
+                                        break
+                                    }                         
+                                }
+                                if (!matched){
+                                    column.title.append(target);
+                                }
+                            }                            
+                            draggable.css({"left": column.position, "top": target.offset().top});                       
+                        }
+                        
+                        if(event.clientX > mid.position && event.clientX < right.position){
+                            transition(mid)
+                        }else if (event.clientX > right.position) {
+                            transition(right)
+                        }else{
+                            transition(left)
+                        }
+                    });
+                }) 
+            }
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,1258 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE taglib
+        PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+	"http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+  <tlib-version>1.0</tlib-version>
+  <jsp-version>1.2</jsp-version>
+  <short-name>xplanner</short-name>
+  <uri>http://xplanner.org/xplanner-taglib</uri>
+  <description>
+        Tag library for XPlanner
+  </description>
+
+  <tag>
+    <name>outline</name>
+    <tag-class>com.technoetic.xplanner.tags.OutlineTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+
+  <tag>
+    <name>box</name>
+    <tag-class>com.technoetic.xplanner.tags.util.BoxTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>title</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>boxedList</name>
+    <tag-class>com.technoetic.xplanner.tags.util.BoxedListTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>title</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>keyValues</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>personOptions</name>
+    <tag-class>com.technoetic.xplanner.tags.PersonOptionsTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>projectId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>filtered</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>labelProperty</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>iterationOptions</name>
+    <tag-class>com.technoetic.xplanner.tags.IterationOptionsTag</tag-class>
+    <body-content>empty</body-content>
+      <attribute>
+        <name>projectId</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+      </attribute>
+      <attribute>
+        <name>onlyCurrentProject</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+      </attribute>
+      <attribute>
+        <name>startDate</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+      </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>labelProperty</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>storyOptions</name>
+    <tag-class>com.technoetic.xplanner.tags.StoryOptionsTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>labelProperty</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>actualStoryId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>navigation</name>
+    <tag-class>net.sf.xplanner.tags.NavigationBarTag</tag-class>
+    <body-content>EMPTY</body-content>
+    <attribute>
+      <name>object</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>oid</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>type</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>back</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>inclusive</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>twiki</name>
+    <tag-class>com.technoetic.xplanner.tags.TwikiTag</tag-class>
+    <body-content>EMPTY</body-content>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>property</name>
+    <tag-class>com.technoetic.xplanner.tags.PropertyTag</tag-class>
+    <body-content>EMPTY</body-content>
+    <attribute>
+      <name>key</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>propertyEqual</name>
+    <tag-class>com.technoetic.xplanner.tags.PropertyEqualTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>key</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>value</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>progressBar</name>
+    <tag-class>com.technoetic.xplanner.tags.ProgressBarDelegatorTag</tag-class>
+    <body-content>EMPTY</body-content>
+    <attribute>
+      <name>actual</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>estimate</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>complete</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>height</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>linkParam</name>
+    <tag-class>com.technoetic.xplanner.tags.LinkParamTag</tag-class>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>scope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>action</name>
+    <tag-class>com.technoetic.xplanner.tags.domain.ActionTag</tag-class>
+    <attribute>
+      <name>targetBean</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>action</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>actionRenderer</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>fkey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>link</name>
+    <tag-class>com.technoetic.xplanner.tags.LinkTag</tag-class>
+    <attribute>
+      <name>removeQuotes</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+     <attribute>
+        <name>useReturnto</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+     </attribute>
+    <attribute>
+      <name>fkey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>accesskey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>anchor</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>forward</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>href</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>linkName</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onblur</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onclick</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>ondblclick</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onfocus</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onkeydown</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onkeypress</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onkeyup</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onmousedown</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onmousemove</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onmouseout</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onmouseover</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onmouseup</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>page</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>paramId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>paramName</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>paramProperty</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>paramScope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>scope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>styleId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>tabindex</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>target</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>transaction</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>includeProjectId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>authenticatedUser</name>
+    <tag-class>com.technoetic.xplanner.tags.AuthenticatedUserTag</tag-class>
+    <tei-class>com.technoetic.xplanner.tags.AuthenticatedUserTEI</tei-class>
+    <body-content>EMPTY</body-content>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>isUserInRole</name>
+    <tag-class>com.technoetic.xplanner.tags.IsUserInRoleTag</tag-class>
+    <attribute>
+      <name>role</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>adminRole</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>userid</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>negate</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>isUserAuthorized</name>
+    <tag-class>com.technoetic.xplanner.tags.IsUserAuthorizedTag</tag-class>
+    <attribute>
+      <name>permission</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>projectId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>principalId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>object</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>resourceType</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>resourceId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>allowedUser</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>negate</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>isUserAuthorizedForAny</name>
+    <tag-class>com.technoetic.xplanner.tags.IsUserAuthorizedForAnyTag</tag-class>
+    <attribute>
+      <name>negate</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>permissions</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>projectId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!--        <attribute>-->
+    <!--            <name>principalId</name>-->
+    <!--            <required>false</required>-->
+    <!--            <rtexprvalue>true</rtexprvalue>-->
+    <!--        </attribute>-->
+    <attribute>
+      <name>collection</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <!--        <attribute>-->
+    <!--            <name>negate</name>-->
+    <!--            <required>false</required>-->
+    <!--            <rtexprvalue>true</rtexprvalue>-->
+    <!--        </attribute>-->
+  </tag>
+  <tag>
+    <name>formatDate</name>
+    <tag-class>com.technoetic.xplanner.tags.FormatDateTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>scope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>format</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>formatKey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>bundle</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>locale</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>content</name>
+    <tag-class>com.technoetic.xplanner.tags.ContentTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>definition</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>contentTitle</name>
+    <tag-class>com.technoetic.xplanner.tags.ContentTitleTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>titleKey</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>contentTitleArg</name>
+    <tag-class>com.technoetic.xplanner.tags.ContentTitleArgTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>printLink</name>
+    <tag-class>com.technoetic.xplanner.tags.PrintLinkTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>target</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <tag>
+    <name>writableTable</name>
+    <tag-class>com.technoetic.xplanner.tags.displaytag.WritableTableTag</tag-class>
+    <tei-class>org.displaytag.tags.TableTagExtraInfo</tei-class>
+    <body-content>JSP</body-content>
+    <display-name>table</display-name>
+    <description>Displays a list in an html table, formatting each item in the list according to the Column tags nested inside of this tag.
+  Use the list attribute to indicate the Collection of data, in some scope, that the tag  should operate on.  Supports
+ the  export of the list data to alternative formats such as CSV, Excel, and XML.  The contents of the list can be sorted,
+        and the list can be broken into individual pages for display. Checks if a user has permission to edit rows
+
+ If you use this tag in Struts, or in some other framework where the page is included via a jsp:include, you should use the requestURI attribute to indicate where
+ tag generated links should point.
+    </description>
+    <!--
+Cannot use VARIABLES at all when one of them (rownum) has a dynamic name :(
+<variable>
+<name-from-attribute>id</name-from-attribute>
+<variable-class>java.lang.Object</variable-class>
+<scope>NESTED</scope>
+<description>This implicit variable holds the value of the current row object (the results of iterator#next).</description>
+</variable>
+
+I think this may have to get yanked.  I don't think we should be changing the name of the scripting variable behind the
+back of the container.  Best left undoc'd and experimental for now; should just be rolled into a LoopStatus class.
+<variable>
+<name-from-attribute>id</name-from-attribute>
+<variable-class>java.lang.Integer</variable-class>
+<scope>NESTED</scope>
+<description>This implicit variable holds the row number of the current row object.
+Note that the name is actually not directly from id, but is id + '_rowNum'</description>
+</variable>
+
+<variable>
+<name-given>mediaType</name-given>
+<variable-class>org.displaytag.properties.MediaTypeEnum</variable-class>
+<scope>NESTED</scope>
+<description>Holds the media type of the current request. Used by ColumnTag to decide whether or not it should display.</description>
+</variable>
+    -->
+    <attribute>
+      <name>rowDecorator</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>Optional row decorator (e.g. for CSS style specification). Can be a derived class
+        name or an instance of RowDecorator.</description>
+    </attribute>
+    <attribute>
+      <name>list</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>Reference to the object used as source for the table. Can be an expression like
+ requestScope.object.property . You must define either the name attribute or the list attribute. List is suggested.</description>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>reference to the object used as source for the table. Can be an expression like
+               requestScope.object.property. In the EL version of the taglibrary this must be an EL expression which
+               points to the source object.
+      </description>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated in displaytag 1.0. Use list.property in "name" attribute.
+          Not supported in the EL version of the tag.</description>
+    </attribute>
+    <attribute>
+      <name>scope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated in displaytag 1.0. Use "pageScope.", "requestScope.", "sessionScope.", "applicationScope." prefixes in name.
+          Not supported in the EL version of the tag.</description>
+    </attribute>
+    <attribute>
+      <name>length</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>number of records to be shown</description>
+    </attribute>
+    <attribute>
+      <name>offset</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>index of the first record to be shown</description>
+    </attribute>
+    <attribute>
+      <name>pagesize</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>number of records in a page</description>
+    </attribute>
+    <attribute>
+      <name>decorator</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>Fully qualified class name for a TableDecorator.  Use a TableDecorator to provide custom operations
+        against the whole list, such as computing totals. Must extend org.displaytag.decorator.TableDecorator. </description>
+    </attribute>
+    <attribute>
+      <name>requestURI</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>When the present, links for sorting, exports, and paging are formed by adding any tag generated
+        parameters to the value of requestURI attribute.</description>
+    </attribute>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>html pass through attribute</description>
+    </attribute>
+    <attribute>
+      <name>class</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>html pass through attribute</description>
+    </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated: use "class"</description>
+    </attribute>
+    <attribute>
+      <name>border</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html pass through attribute. Use css "border"</description>
+    </attribute>
+    <attribute>
+      <name>cellspacing</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>html pass through attribute</description>
+    </attribute>
+    <attribute>
+      <name>cellpadding</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>html pass through attribute. Better using "padding" css attribute in style or class</description>
+    </attribute>
+    <attribute>
+      <name>align</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>background</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>bgcolor</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>frame</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>html pass through attribute.</description>
+    </attribute>
+    <attribute>
+      <name>height</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>hspace</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>rules</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>html pass through attribute. </description>
+    </attribute>
+    <attribute>
+      <name>summary</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>html pass through attribute</description>
+    </attribute>
+    <attribute>
+      <name>vspace</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>export</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>enable/disable export. Valid values are true or false </description>
+    </attribute>
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>An implicit variable of this name will be created and placed into NESTED scope. The object is
+            also added to pageContext under this name.</description>
+    </attribute>
+    <attribute>
+      <name>sort</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>Use 'page' if you want to sort only visible records, or 'list' if you want to sort the full list</description>
+    </attribute>
+    <attribute>
+      <name>defaultsort</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+      <description>The index of the column that will be used by default for sorting</description>
+    </attribute>
+    <attribute>
+      <name>defaultorder</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>The default order for the sorted column. Valid values are "ascending" (default) or "descending"</description>
+    </attribute>
+    <attribute>
+      <name>permissions</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>wholeCollection</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <example>
+      &lt;display:table name="someList" export="true" id="row" requestURI="MyAction.do"&gt;
+      &lt;display:column sortable="true" title="ID"&gt; &lt;c:out value="${row.id}"/&gt; &lt;/display:column&gt;
+      &lt;display:column property="email" autolink="true"/&gt;
+      &lt;display:column property="description" title="Comments"/&gt;
+      &lt;/display:table&gt;
+    </example>
+  </tag>
+  <tag>
+    <name>actionButtons</name>
+    <tag-class>com.technoetic.xplanner.tags.displaytag.ActionButtonsTag</tag-class>
+    <tei-class>com.technoetic.xplanner.tags.displaytag.ActionButtonsTagInfo</tei-class>
+    <display-name>actionButtons</display-name>
+    <description>Renders action buttons for given object.</description>
+    <attribute>
+      <name>object</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description></description>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description></description>
+    </attribute>
+    <attribute>
+      <name>scope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description></description>
+    </attribute>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description></description>
+    </attribute>
+   </tag>
+  <tag>
+    <name>actionButtonsColumn</name>
+    <tag-class>com.technoetic.xplanner.tags.displaytag.ActionButtonsColumnTag</tag-class>
+    <tei-class>com.technoetic.xplanner.tags.displaytag.ActionButtonsTagInfo</tei-class>
+    <display-name>actionButtonsColumn</display-name>
+    <description>MUST be nested within a Column tag.</description>
+    <attribute>
+      <name>object</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description></description>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description></description>
+    </attribute>
+    <attribute>
+      <name>scope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description></description>
+    </attribute>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description></description>
+    </attribute>
+    <!-- attributes inherited from column tag-->
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>name of the property in the bean specified in the parent table tag (via the "name" attribute) mapped to
+                this column</description>
+    </attribute>
+    <attribute>
+      <name>sortProperty</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>name of the property in the bean specified in the parent table tag (via the "name" attribute) used to sort this column</description>
+    </attribute>
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>title of the column (text for the th cell)</description>
+    </attribute>
+    <attribute>
+      <name>nulls</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>By default, null values don't appear in the list. By setting 'nulls' to 'true', then
+     null values will appear as "null" in the list (mostly useful for debugging).  Defaults to 'false'. </description>
+    </attribute>
+    <attribute>
+      <name>sort</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated: use "sortable"</description>
+    </attribute>
+    <attribute>
+      <name>sortable</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>Set to 'true' to make the column sortable. Defaults to 'false'.</description>
+    </attribute>
+    <attribute>
+      <name>autolink</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>Automatically hyperlink URLs and email addresses that appear in the column. Defaults to 'false'.</description>
+    </attribute>
+    <attribute>
+      <name>media</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>Use this attribute to keep a column from being output during an export. The column will only render
+     for the named media type(s) - it won't be added to the table if the current request media
+        is not supported. Can be any space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'.
+        Defaults to 'all'.  See the export page in the example webapp for more details.</description>
+    </attribute>
+    <attribute>
+      <name>href</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>The base URL used to construct the dynamic link.
+ If this attribute is provided, then the data that is shown for this column is wrapped inside
+   a &lt;a href&gt; tag with the url provided through this attribute. Typically you would use
+   this attribute along with one of the struts-like param attributes (param*) to create a dynamic
+   link so that each row creates a different URL based on the data that is being viewed.
+      </description>
+    </attribute>
+    <attribute>
+      <name>paramId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description> The name of the request parameter that will be dynamically added to the generated href URL.
+ The corresponding value is defined by the paramProperty and (optional) paramName attributes,
+ optionally scoped by the paramScope attribute.
+      </description>
+    </attribute>
+    <attribute>
+      <name>paramName</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>   The name of a JSP bean that is a String containing the value for the request parameter named
+ by paramId (if paramProperty is not specified), or a JSP bean whose property getter is called
+ to return a String (if paramProperty is specified). The JSP bean is constrained to the bean
+ scope specified by the paramScope property, if it is specified. If paramName is omitted, then
+ it is assumed that the current object being iterated on is the target bean.
+      </description>
+    </attribute>
+    <attribute>
+      <name>paramProperty</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated - use Expressions in paramName.
+      The name of a property of the bean specified by the paramName attribute (or the current object
+      being iterated on if paramName is not provided), whose return value must be a String containing
+      the value of the request parameter (named by the paramId attribute) that will be dynamically
+      added to this href URL.
+      </description>
+    </attribute>
+    <attribute>
+      <name>paramScope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>   @deprecated - use Expressions in paramName.
+ The scope within which to search for the bean specified by the paramName attribute. If not
+  specified, all scopes are searched. If paramName is not provided, then the current object
+      being iterated on is assumed to be the target bean.
+      </description>
+    </attribute>
+    <attribute>
+      <name>maxLength</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description> If this attribute is provided, then the column's displayed is limited to this number of
+  characters.  An elipse (...) is appended to the end if this column is linked, and the user
+  can mouseover the elipse to get the full text.
+      </description>
+    </attribute>
+    <attribute>
+      <name>maxWords</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>     If this attribute is provided, then the column's displayed is limited to this number of words.
+  An elipse (...) is appended to the end if this column is linked, and the user can mouseover
+  the elipse to get the full text.
+      </description>
+    </attribute>
+    <attribute>
+      <name>width</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated; html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>class</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>html pass through attribute; use this instead of directly coding presentational atttributes.</description>
+    </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated: use "class"</description>
+    </attribute>
+    <attribute>
+      <name>headerClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>"class" html attribute added only for header cells.</description>
+    </attribute>
+    <attribute>
+      <name>headerStyleClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated: use "headerClass"</description>
+    </attribute>
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>html pass through attribute.</description>
+    </attribute>
+    <attribute>
+      <name>align</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>background</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>bgcolor</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>height</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>nowrap</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>valign</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+    </attribute>
+    <attribute>
+      <name>group</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description> The grouping level (starting at 1 and incrementing) of this column (indicates if successive
+ contain the same values, then they should not be displayed).  The level indicates that if a
+      lower level no longer matches, then the matching for this higher level should start over as
+      well. If this attribute is not included, then no grouping is performed.
+      </description>
+    </attribute>
+
+    <attribute>
+      <name>decorator</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>The fully qualified class name of a class that should be used to "decorate" the underlying object
+ being displayed. The class should implement org.displaytag.decorator.ColumnDecorator. If a decorator is specified for
+ the entire table, then this decorator will decorate that decorator. </description>
+    </attribute>
+    <example>
+    </example>
+  </tag>
+
+
+</taglib>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN" 
+       "http://struts.apache.org/dtds/tiles-config_1_1.dtd">
+<tiles-definitions>
+	<definition name="viewLayout" page="/WEB-INF/jsp/layout/viewLayoutNew.jsp">
+		<put name="name" value="" />
+		<put name="type" value="" />
+		<put name="showTitle" value="true" />
+		<put name="titlePrefix" value="" direct="true" />
+		<put name="titleSuffix" value="" direct="true" />
+		<put name="actions" value=" " direct="true" />
+		<put name="progress" value=" " direct="true" />
+		<put name="footer" value="/WEB-INF/jsp/common/footer.jsp" />
+		<put name="header" value="/WEB-INF/jsp/layout/viewHeader.jsp" />
+	</definition>
+
+
+
+</tiles-definitions>

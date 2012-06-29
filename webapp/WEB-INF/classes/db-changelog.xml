@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+	<changeSet author="maksym" id="1-1">
+		<preConditions onFail="MARK_RAN" >
+			<not>
+				<tableExists tableName="attribute" />
+			</not>
+		</preConditions>
+		<createTable tableName="attribute">
+			<column name="targetId" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="value" type="VARCHAR(255)" />
+		</createTable>
+		<createTable tableName="datasample">
+			<column name="sampleTime" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column name="referenceId" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="aspect" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="value" type="DOUBLE" />
+		</createTable>
+		<createTable tableName="history">
+			<column name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="when_happened" type="DATETIME" />
+			<column name="container_id" type="INT" />
+			<column name="target_id" type="INT" />
+			<column name="object_type" type="VARCHAR(255)" />
+			<column name="action" type="VARCHAR(255)" />
+			<column name="description" type="VARCHAR(255)" />
+			<column name="person_id" type="INT" />
+			<column name="notified" type="BIT" />
+		</createTable>
+		<createTable tableName="identifier">
+			<column defaultValueNumeric="1" name="nextId" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="integration">
+			<column defaultValueNumeric="0" name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="project_id" type="INT" />
+			<column name="last_update" type="DATETIME" />
+			<column name="person_id" type="INT" />
+			<column name="when_started" type="DATETIME" />
+			<column name="when_requested" type="DATETIME" />
+			<column name="when_complete" type="DATETIME" />
+			<column name="state" type="CHAR(1)" />
+			<column name="comments" type="VARCHAR(255)" />
+		</createTable>
+		<createTable tableName="iteration">
+			<column defaultValueNumeric="0" name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="last_update" type="DATETIME" />
+			<column name="project_id" type="INT" />
+			<column name="name" type="VARCHAR(255)" />
+			<column name="description" type="TEXT" />
+			<column name="start_date" type="DATE" />
+			<column name="end_date" type="DATE" />
+			<column name="status" type="SMALLINT" />
+			<column name="days_worked" type="DOUBLE" />
+		</createTable>
+		<createTable tableName="note">
+			<column defaultValueNumeric="0" name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="attachedTo_id" type="INT" />
+			<column name="author_id" type="INT" />
+			<column name="subject" type="VARCHAR(255)" />
+			<column name="body" type="TEXT" />
+			<column name="submission_time" type="DATETIME" />
+			<column name="last_update" type="DATETIME" />
+			<column name="attachment_id" type="INT" />
+		</createTable>
+		<createTable tableName="notification_receivers">
+			<column name="project_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="person_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="patches">
+			<column name="system_name" type="VARCHAR(30)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="patch_level" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column defaultValueComputed="CURRENT_TIMESTAMP" name="patch_date"
+				type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column defaultValue="F" name="patch_in_progress" type="CHAR(1)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="permission">
+			<column name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="principal" type="INT" />
+			<column name="name" type="VARCHAR(255)" />
+			<column name="resource_type" type="VARCHAR(255)" />
+			<column name="resource_id" type="INT" />
+			<column defaultValueBoolean="true" name="positive" type="BIT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="person">
+			<column defaultValueNumeric="0" name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="last_update" type="DATETIME" />
+			<column name="name" type="VARCHAR(255)" />
+			<column name="email" type="VARCHAR(255)" />
+			<column name="phone" type="VARCHAR(255)" />
+			<column name="initials" type="VARCHAR(255)" />
+			<column name="userId" type="VARCHAR(255)" />
+			<column name="password" type="VARCHAR(255)" />
+			<column name="is_hidden" type="BIT" />
+		</createTable>
+		<createTable tableName="person_role">
+			<column name="role_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="person_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="project_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="project">
+			<column defaultValueNumeric="0" name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="last_update" type="DATETIME" />
+			<column name="name" type="VARCHAR(255)" />
+			<column name="description" type="TEXT" />
+			<column name="is_hidden" type="BIT" />
+		</createTable>
+		<createTable tableName="role">
+			<column name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="role" type="VARCHAR(255)" />
+			<column name="lft" type="INT" />
+			<column name="rgt" type="INT" />
+		</createTable>
+		<createTable tableName="story">
+			<column defaultValueNumeric="0" name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="last_update" type="DATETIME" />
+			<column name="name" type="VARCHAR(255)" />
+			<column name="description" type="TEXT" />
+			<column name="iteration_id" type="INT" />
+			<column name="tracker_id" type="INT" />
+			<column name="estimated_hours" type="DOUBLE" />
+			<column name="priority" type="INT" />
+			<column name="customer_id" type="INT" />
+			<column defaultValue="d" name="status" type="CHAR(1)">
+				<constraints nullable="false" />
+			</column>
+			<column name="original_estimated_hours" type="DOUBLE" />
+			<column defaultValue="p" name="disposition" type="CHAR(1)">
+				<constraints nullable="false" />
+			</column>
+			<column defaultValueNumeric="0" name="postponed_hours" type="DOUBLE" />
+			<column name="it_start_estimated_hours" type="DOUBLE" />
+			<column defaultValueNumeric="0" name="orderNo" type="INT" />
+		</createTable>
+		<createTable tableName="task">
+			<column defaultValueNumeric="0" name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="last_update" type="DATETIME" />
+			<column name="name" type="VARCHAR(255)" />
+			<column name="type" type="VARCHAR(255)" />
+			<column name="description" type="TEXT" />
+			<column name="acceptor_id" type="INT" />
+			<column name="created_date" type="DATE" />
+			<column name="estimated_hours" type="DOUBLE" />
+			<column name="original_estimate" type="DOUBLE" />
+			<column name="is_complete" type="BIT" />
+			<column defaultValueNumeric="0" name="story_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column defaultValue="p" name="disposition" type="CHAR(1)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="time_entry">
+			<column defaultValueNumeric="0" name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="last_update" type="DATETIME" />
+			<column name="start_time" type="DATETIME" />
+			<column name="end_time" type="DATETIME" />
+			<column name="duration" type="DOUBLE" />
+			<column name="person1_id" type="INT" />
+			<column name="person2_id" type="INT" />
+			<column name="task_id" type="INT" />
+			<column name="report_date" type="DATETIME" />
+			<column name="description" type="TEXT" />
+		</createTable>
+		<createTable tableName="xdir">
+			<column name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(255)" />
+			<column name="parent_id" type="INT" />
+		</createTable>
+		<createTable tableName="xfile">
+			<column name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(255)" />
+			<column name="content_type" type="VARCHAR(255)" />
+			<column name="data" type="LONGBLOB" />
+			<column name="file_size" type="BIGINT" />
+			<column name="dir_id" type="INT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="maksym" id="1-2">
+		<preConditions onFail="MARK_RAN" >
+			<not>
+				<indexExists tableName="person" indexName="userId" columnNames="userId" />
+			</not>
+		</preConditions>
+		<addPrimaryKey columnNames="targetId, name" tableName="attribute" />
+		<addPrimaryKey columnNames="sampleTime, referenceId, aspect"
+			tableName="datasample" />
+		<addPrimaryKey columnNames="project_id, person_id"
+			tableName="notification_receivers" />
+		<addPrimaryKey columnNames="role_id, person_id, project_id"
+			tableName="person_role" />
+		<createIndex indexName="userId" tableName="person" unique="true">
+			<column name="userId" />
+		</createIndex>
+		<createIndex indexName="role" tableName="role" unique="true">
+			<column name="role" />
+		</createIndex>
+		<addForeignKeyConstraint baseColumnNames="project_id"	baseTableName="iteration" constraintName="FK8904EEDD8A94A401" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"	referencedColumnNames="id" referencedTableName="project" referencesUniqueColumn="false" />
+		<addForeignKeyConstraint baseColumnNames="attachment_id" baseTableName="note" constraintName="noteAttachments" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="xfile" referencesUniqueColumn="false" />
+		<addForeignKeyConstraint baseColumnNames="person_id" baseTableName="notification_receivers"	constraintName="FK90D2EE1032DA9A45" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="person" referencesUniqueColumn="false" />
+		<addForeignKeyConstraint baseColumnNames="project_id"	baseTableName="notification_receivers" constraintName="FK90D2EE108A94A401" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project" referencesUniqueColumn="false" />
+		<addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="story"  constraintName="FK0015856662D8A5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"	onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="person" referencesUniqueColumn="false" />
+		<addForeignKeyConstraint baseColumnNames="iteration_id"	baseTableName="story"  constraintName="FK0025856662D8A5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="iteration" referencesUniqueColumn="false" />
+		<addForeignKeyConstraint baseColumnNames="story_id" baseTableName="task"  constraintName="FK3635856662D8A5"	deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"	onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="story" referencesUniqueColumn="false" />
+		<addForeignKeyConstraint baseColumnNames="task_id" baseTableName="time_entry"	constraintName="FK0045856662D8A5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"	referencedColumnNames="id" referencedTableName="task" referencesUniqueColumn="false" />
+		<addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="xdir"  constraintName="FK3811157B66B0D0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="xdir" referencesUniqueColumn="false" />
+		<addForeignKeyConstraint baseColumnNames="dir_id"	baseTableName="xfile"  constraintName="FK6CAF9F4B0A1860D"	deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"	onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="xdir" referencesUniqueColumn="false" />
+
+		<insert tableName="permission">
+			<column name="id" valueNumeric="6" />
+			<column name="principal" valueNumeric="5" />
+			<column name="name" value="%" />
+			<column name="resource_type" value="%" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="true" />
+		</insert>
+		<insert tableName="permission">
+			<column name="id" valueNumeric="7" />
+			<column name="principal" valueNumeric="3" />
+			<column name="name" value="create.project" />
+			<column name="resource_type" value="system.project" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="false" />
+		</insert>
+		<insert tableName="permission">
+			<column name="id" valueNumeric="8" />
+			<column name="principal" valueNumeric="3" />
+			<column name="name" value="create.person" />
+			<column name="resource_type" value="system.person" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="false" />
+		</insert>
+		<insert tableName="permission">
+			<column name="id" valueNumeric="9" />
+			<column name="principal" valueNumeric="4" />
+			<column name="name" value="create.project" />
+			<column name="resource_type" value="system.project" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="false" />
+		</insert>
+		<insert tableName="permission">
+			<column name="id" valueNumeric="10" />
+			<column name="principal" valueNumeric="4" />
+			<column name="name" value="admin%" />
+			<column name="resource_type" value="%" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="true" />
+		</insert>
+		<insert tableName="permission">
+			<column name="id" valueNumeric="11" />
+			<column name="principal" valueNumeric="3" />
+			<column name="name" value="create%" />
+			<column name="resource_type" value="%" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="true" />
+		</insert>
+		<insert tableName="permission">
+			<column name="id" valueNumeric="12" />
+			<column name="principal" valueNumeric="3" />
+			<column name="name" value="edit%" />
+			<column name="resource_type" value="%" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="true" />
+		</insert>
+		<insert tableName="permission">
+			<column name="id" valueNumeric="13" />
+			<column name="principal" valueNumeric="3" />
+			<column name="name" value="integrate%" />
+			<column name="resource_type" value="%" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="true" />
+		</insert>
+		<insert tableName="permission">
+			<column name="id" valueNumeric="14" />
+			<column name="principal" valueNumeric="3" />
+			<column name="name" value="delete%" />
+			<column name="resource_type" value="%" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="true" />
+		</insert>
+		<insert tableName="permission">
+			<column name="id" valueNumeric="15" />
+			<column name="principal" valueNumeric="2" />
+			<column name="name" value="read%" />
+			<column name="resource_type" value="%" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="true" />
+		</insert>
+		<insert tableName="permission">
+			<column name="id" valueNumeric="19" />
+			<column name="principal" valueNumeric="3" />
+			<column name="name" value="delete" />
+			<column name="resource_type" value="system.project.iteration" />
+			<column name="resource_id" valueNumeric="0" />
+			<column name="positive" valueBoolean="false" />
+		</insert>
+		<insert tableName="role">
+			<column name="id" valueNumeric="2" />
+			<column name="role" value="viewer" />
+			<column name="lft" valueNumeric="1" />
+			<column name="rgt" valueNumeric="8" />
+		</insert>
+		<insert tableName="role">
+			<column name="id" valueNumeric="3" />
+			<column name="role" value="editor" />
+			<column name="lft" valueNumeric="2" />
+			<column name="rgt" valueNumeric="7" />
+		</insert>
+		<insert tableName="role">
+			<column name="id" valueNumeric="4" />
+			<column name="role" value="admin" />
+			<column name="lft" valueNumeric="3" />
+			<column name="rgt" valueNumeric="6" />
+		</insert>
+		<insert tableName="role">
+			<column name="id" valueNumeric="5" />
+			<column name="role" value="sysadmin" />
+			<column name="lft" valueNumeric="4" />
+			<column name="rgt" valueNumeric="5" />
+		</insert>
+		<insert tableName="patches">
+			<column name="system_name" value="xplanner" />
+			<column name="patch_level" valueNumeric="14" />
+			<column name="patch_date" valueDate="2011-07-15T15:39:29.0" />
+			<column name="patch_in_progress" value="F" />
+		</insert>
+		<insert tableName="identifier">
+			<column name="nextId" valueNumeric="19" />
+		</insert>
+		<insert tableName="person">
+			<column name="id" valueNumeric="1" />
+			<column name="last_update" valueDate="2005-12-07T00:00:00.0" />
+			<column name="name" value="sysadmin" />
+			<column name="email" value="no@reply.com" />
+			<column name="phone" />
+			<column name="initials" value="SYS" />
+			<column name="userId" value="sysadmin" />
+			<column name="password" value="1tGWp1Bdm02Sw4bD7/o0N2ao405Tf8kjxGBW/A==" />
+			<column name="is_hidden" valueBoolean="false" />
+		</insert>
+		<insert tableName="person_role">
+			<column name="role_id" valueNumeric="5" />
+			<column name="person_id" valueNumeric="1" />
+			<column name="project_id" valueNumeric="0" />
+		</insert>
+	</changeSet>
+	<changeSet author="maksym" id="2-1">
+		<createTable tableName="object_type">
+			<column name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="last_update" type="DATETIME" />
+			<column name="description" type="VARCHAR(255)" />
+			<column name="name" type="VARCHAR(255)" />
+		</createTable>
+		<createTable tableName="setting">
+			<column name="id" type="INT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="last_update" type="DATETIME" />
+			<column name="description" type="VARCHAR(4096)" />
+			<column name="name" type="VARCHAR(255)" />
+			<column name="category" type="VARCHAR(255)" />
+			<column name="defaultValue" type="VARCHAR(255)" />
+			<column name="setting_scope" type="INT" />
+			<column name="objectType_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="maksym" id="2-2">
+		<insert tableName="object_type">
+			<column name="id" valueNumeric="1" />
+			<column name="last_update" valueDate="2010-06-30T09:00:00.0" />
+			<column name="description" value="User" />
+			<column name="name" value="User" />
+		</insert>
+		<insert tableName="object_type">
+			<column name="id" valueNumeric="2" />
+			<column name="last_update" valueDate="2010-06-30T09:00:00.0" />
+			<column name="description" value="project" />
+			<column name="name" value="Project" />
+		</insert>
+		<insert tableName="object_type">
+			<column name="id" valueNumeric="3" />
+			<column name="last_update" valueDate="2010-06-30T09:00:00.0" />
+			<column name="description" value="iteration" />
+			<column name="name" value="Iteration" />
+		</insert>
+		<insert tableName="object_type">
+			<column name="id" valueNumeric="4" />
+			<column name="last_update" valueDate="2010-06-30T09:00:00.0" />
+			<column name="description" value="userstory" />
+			<column name="name" value="UserStory" />
+		</insert>
+		<insert tableName="object_type">
+			<column name="id" valueNumeric="5" />
+			<column name="last_update" valueDate="2010-06-30T09:00:00.0" />
+			<column name="description" value="task" />
+			<column name="name" value="Task" />
+		</insert>
+		<insert tableName="object_type">
+			<column name="id" valueNumeric="6" />
+			<column name="last_update" valueDate="2010-06-30T09:00:00.0" />
+			<column name="description" value="note" />
+			<column name="name" value="Note" />
+		</insert>
+		<insert tableName="object_type">
+			<column name="id" valueNumeric="7" />
+			<column name="last_update" valueDate="2010-06-30T09:00:00.0" />
+			<column name="description" value="setting" />
+			<column name="name" value="Setting" />
+		</insert>
+	</changeSet>
+	<changeSet author="maksym" id="2-3">
+		<addColumn tableName="xdir">
+			<column name="last_update" type="DATETIME" />
+		</addColumn>
+		<addColumn tableName="xfile">
+			<column name="last_update" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="maksym" id="2-4">
+		<addColumn tableName="project">
+			<column name="backlog_id" type="INT"/>
+		</addColumn>
+	</changeSet>
+	<changeSet author="maksym" id="2-5">
+		<renameTable newTableName="roles" oldTableName="role"/>
+	</changeSet>
+</databaseChangeLog>

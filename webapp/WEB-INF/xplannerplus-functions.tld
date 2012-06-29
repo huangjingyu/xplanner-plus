@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+    
+  <description>XPlanner+ functions</description>
+  <display-name>XPlanner+ functions</display-name>
+  <tlib-version>1.0</tlib-version>
+  <short-name>xfn</short-name>
+  <uri>http://xplannerplus.com/jstl/functions</uri>
+
+  <function>
+    <description>
+      Filter collection by specified field value
+    </description>
+    <name>filter</name>
+    <function-class>net.sf.xplanner.functions.Functions</function-class>
+    <function-signature>java.util.List filter(java.util.List, java.lang.String, java.lang.Object)</function-signature>
+  </function>
+
+</taglib>

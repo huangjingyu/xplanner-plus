@@ -1,0 +1,26 @@
+<security>
+    <security-bypass>
+        <url-pattern>/do/mobile/login</url-pattern>
+        <url-pattern>/do/mobile/notAuthorized</url-pattern>
+    </security-bypass>
+    <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>XPlanner Mobile Access</web-resource-name>
+        <url-pattern>/do/mobile/*</url-pattern>
+      </web-resource-collection>
+      <auth-constraint>
+        <role-name>viewer</role-name>
+        <role-name>editor</role-name>
+        <role-name>admin</role-name>
+      </auth-constraint>
+    </security-constraint>
+    <security-role>
+      <role-name>editor</role-name>
+    </security-role>
+    <security-role>
+      <role-name>viewer</role-name>
+    </security-role>
+    <security-role>
+      <role-name>admin</role-name>
+    </security-role>
+</security>

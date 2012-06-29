@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+              "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+              "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+	<!--
+		========== Form Bean Definitions ===================================
+	-->
+	<form-beans type="org.apache.struts.action.ActionFormBean">
+		<form-bean name="edit/project"
+			type="com.technoetic.xplanner.forms.ProjectEditorForm" />
+		<form-bean name="edit/setting"
+			type="com.technoetic.xplanner.forms.ProjectEditorForm" />
+		<form-bean name="edit/iteration"
+			type="com.technoetic.xplanner.forms.IterationEditorForm" />
+		<form-bean name="start/iteration"
+			type="com.technoetic.xplanner.forms.IterationStatusEditorForm" />
+		<form-bean name="close/iteration"
+			type="com.technoetic.xplanner.forms.IterationStatusEditorForm" />
+			
+		<form-bean name="edit/feature"
+			type="com.technoetic.xplanner.forms.FeatureEditorForm" />
+		<form-bean name="edit/userstory"
+			type="com.technoetic.xplanner.forms.UserStoryEditorForm" />
+		<!--
+			FIXME rename the action to movecontinue/userstory or find a better
+			name to encapsulate move, continue, copy, split. Break up jsps as
+			well
+		-->
+		<form-bean name="move/continue/userstory"
+			type="com.technoetic.xplanner.forms.MoveContinueStoryForm"></form-bean>
+		<form-bean name="edit/note"
+			type="com.technoetic.xplanner.forms.NoteEditorForm" />
+		<form-bean name="edit/task"
+			type="com.technoetic.xplanner.forms.TaskEditorForm" />
+		<form-bean name="edit/reorderstories"
+			type="com.technoetic.xplanner.forms.ReorderStoriesForm" />
+		<form-bean name="move/userstories"
+			type="com.technoetic.xplanner.forms.MoveStoriesForm" />
+		<form-bean name="move/continue/task"
+			type="com.technoetic.xplanner.forms.MoveContinueTaskForm" />
+		<form-bean name="continue/unfinished/stories"
+			type="com.technoetic.xplanner.forms.ContinueUnfinishedStoriesForm" />
+		<form-bean name="edit/person"
+			type="com.technoetic.xplanner.forms.PersonEditorForm" />
+		<form-bean name="import/people"
+			type="com.technoetic.xplanner.forms.ImportPeopleForm" />
+		<form-bean name="import"
+			type="com.technoetic.xplanner.forms.ImportStoriesForm" />
+		<form-bean name="edit/time"
+			type="com.technoetic.xplanner.forms.TimeEditorForm" />
+		<!--
+			form-bean name="edit/time_notification"
+			type="com.technoetic.xplanner.forms.TimeNotificationReceiversForm"/
+		-->
+		<form-bean name="timesheetForm"
+			type="com.technoetic.xplanner.forms.PersonTimesheetForm" />
+		<form-bean name="aggregateTimesheetForm"
+			type="com.technoetic.xplanner.forms.AggregateTimesheetForm" />
+		<form-bean name="placeHolderForm" dynamic="true"
+			type="org.apache.struts.action.DynaActionForm" />
+		<form-bean name="view/file" dynamic="true"
+			type="com.technoetic.xplanner.forms.FileManagerForm" />
+		<form-bean name="login/authenticate" dynamic="true"
+			type="org.apache.struts.action.DynaActionForm">
+			<form-property name="userId" type="java.lang.String" />
+			<form-property name="password" type="java.lang.String" />
+			<form-property name="action" type="java.lang.String" />
+			<form-property name="loginModuleNames" type="java.util.List" />
+		</form-bean>
+		<form-bean name="edit/roles"
+			type="com.technoetic.xplanner.forms.RoleEditorForm" />
+	</form-beans>
+
+	<!--
+		TODO Move common error handling into the struts-config.xml and out of
+		AbstractAction
+	-->
+	<global-exceptions>
+		<exception
+			type="com.technoetic.xplanner.domain.repository.ObjectNotFoundException"
+			path="/WEB-INF/jsp/common/generalError.jsp" key="error.objectNotFound" />
+		<exception type="org.hibernate.UnresolvableObjectException"
+			path="/WEB-INF/jsp/common/generalError.jsp" key="error.objectNotFound" />
+		<exception
+			type="com.technoetic.xplanner.security.auth.AuthorizationException"
+			path="/WEB-INF/jsp/common/generalError.jsp" key="security.notauthorized" />
+	</global-exceptions>
+	<!--
+		========== Global Forward Definitions ==============================
+	-->
+	<global-forwards type="org.apache.struts.action.ActionForward">
+		<forward name="view/projects" path="/WEB-INF/jsp/view/projects.jsp" />
+		<forward name="view/project" path="/WEB-INF/jsp/view/project.jsp" />
+		<forward name="view/project/features" path="/WEB-INF/jsp/view/iterationFeatures.jsp" />
+		<forward name="view/iterationTabs" path="/WEB-INF/jsp/view/iteration.jsp" />
+		<forward name="view/iteration" path="/WEB-INF/jsp/view/iteration.jsp" />
+		<forward name="view/iteration/tasks" path="/WEB-INF/jsp/view/iterationTasks.jsp" />
+		<forward name="view/iteration/features" path="/WEB-INF/jsp/view/iterationFeatures.jsp" />
+		<forward name="view/iteration/accuracy" path="/WEB-INF/jsp/view/iterationAccuracy.jsp" />
+		<forward name="view/iteration/metrics" path="/WEB-INF/jsp/view/iterationMetrics.jsp" />
+		<forward name="view/iteration/statistics" path="/WEB-INF/jsp/view/iterationIterations.jsp" />
+		<forward name="view/userstory" path="/WEB-INF/jsp/view/userstory.jsp" />
+		<forward name="view/task" path="/WEB-INF/jsp/view/task.jsp" />
+		<forward name="view/feature" path="/WEB-INF/jsp/view/feature.jsp" />
+		<forward name="view/people" path="/WEB-INF/jsp/view/people.jsp" />
+		<forward name="view/person" path="/WEB-INF/jsp/view/person.jsp" />
+		<forward name="view/taskhistory" path="/WEB-INF/jsp/view/taskhistory.jsp" />
+		<forward name="view/text" path="/WEB-INF/jsp/view/viewtext.jsp" />
+		<forward name="view/twikiformat" path="/WEB-INF/jsp/view/twikiformat.jsp" />
+		<forward name="view/integrations" path="/WEB-INF/jsp/view/integrations.jsp" />
+		<forward name="view/timesheet" path="/WEB-INF/jsp/view/timesheet.jsp" />
+		<forward name="view/aggregateTimesheet" path="/WEB-INF/jsp/view/aggregateTimesheet.jsp" />
+		<forward name="view/history" path="/WEB-INF/jsp/view/history.jsp" />
+		<forward name="edit/project" path="/WEB-INF/jsp/edit/editProject.jsp" />
+		<forward name="edit/iteration" path="/WEB-INF/jsp/edit/editIteration.jsp" />
+		<forward name="start/iteration" path="/WEB-INF/jsp/edit/editIterationStatus.jsp" />
+		<forward name="close/iteration" path="/WEB-INF/jsp/edit/editIterationStatus.jsp" />
+		<forward name="move/userstories" path="/WEB-INF/jsp/edit/moveStories.jsp" />
+		<forward name="edit/feature" path="/WEB-INF/jsp/edit/editFeature.jsp" />
+		<forward name="edit/userstory" path="/WEB-INF/jsp/edit/editStory.jsp" />
+		<forward name="move/continue/userstory" path="/WEB-INF/jsp/edit/moveContinueStory.jsp" />
+		<forward name="continue/unfinished/stories"
+			path="/WEB-INF/jsp/edit/continueUnfinishedStories.jsp" />
+		<forward name="edit/task" path="/WEB-INF/jsp/edit/editTask.jsp" />
+		<forward name="move/continue/task" path="/WEB-INF/jsp/edit/moveContinueTask.jsp" />
+		<!-- DEBT Do we need this forward? -->
+		<forward name="edit/task/estimate" path="/WEB-INF/jsp/edit/editTaskEstimate.jsp" />
+		<forward name="edit/person" path="/WEB-INF/jsp/edit/editPerson.jsp" />
+		<forward name="edit/time" path="/WEB-INF/jsp/edit/editTimeEntries.jsp" />
+
+		<forward name="error" path="/WEB-INF/jsp/common/generalError.jsp" />
+		<forward name="error/objectNotFound" path="/WEB-INF/jsp/common/generalError.jsp" />
+
+		<forward name="image/calendar" path="/images/calendar.png" />
+		<forward name="security/login" path="/do/login" />
+		<forward name="security/notAuthorized" path="/WEB-INF/jsp/security/notAuthorized.jsp" />
+		<forward name="edit/roles" path="/WEB-INF/jsp/edit/editRoles.jsp" />
+		<forward name="search/id" path="/do/search/id" />
+		<forward name="search/content" path="/do/search/content" />
+    <forward name="view/dashboard" path="/WEB-INF/jsp/view/dashboard.jsp" />
+    <forward name="view/settings" path="/WEB-INF/jsp/view/settings.jsp" />
+    <forward name="view/integrations" path="/WEB-INF/jsp/view/integrations.jsp" />
+	</global-forwards>
+
+
+	<!--
+		========== Action Mapping Definitions ==============================
+	-->
+	<action-mappings>
+
+		<!--
+			For any actions of type org.twdata.struts.SpringAction, look in the
+			spring-beans.xml for more details about the action configuration.
+		-->
+		<action path="/changeLocale" />
+		
+		<action path="/systemInfo">
+			<forward name="success" path="/WEB-INF/jsp/common/unexpectedError.jsp" />
+		</action>
+
+		<action path="/login" parameter="security/login" name="login/authenticate">
+			<forward name="notAuthenticated" path="/WEB-INF/jsp/security/login.jsp" />
+			<forward name="authenticated" path="/do/view/projects" redirect="true" />
+		</action>
+
+		<action path="/notAuthorized" parameter="security/notAuthorized" />
+
+		<action path="/logout" />
+
+		<!--
+			<action path="/logout" parameter="security/logout" > </action>
+		-->
+
+		<action path="/view/twikiformat" parameter="view/twikiformat" />
+
+		<action path="/view/projects" parameter="view/projects" />
+		
+		<action path="/view/project">
+			<forward name="display" path="/WEB-INF/jsp/view/project.jsp" />
+		</action>
+
+		<action path="/view/project/features">
+			<forward name="display" path="/WEB-INF/jsp/view/projectFeatures.jsp" />
+		</action>
+
+		<action path="/export/project/xml" />
+
+		<action path="/export/project/mpx" />
+
+		<action path="/export/project/mspdi" />
+
+		<action path="/edit/project" input="/WEB-INF/jsp/edit/editProject.jsp" name="edit/project" />
+
+		<action path="/delete/project" name="edit/project" />
+
+		<action path="/view/iterationTabs">
+			<forward name="display" path="/WEB-INF/jsp/view/iterationTabs.jsp" />
+		</action>
+
+		<action path="/view/iteration">
+			<forward name="display" path="/WEB-INF/jsp/view/iteration.jsp" />
+		</action>
+
+		<action path="/view/feature">
+			<forward name="display" path="/WEB-INF/jsp/view/feature.jsp" />
+		</action>
+
+		<action path="/view/iteration/tasks">
+			<forward name="display" path="/WEB-INF/jsp/view/iterationTasks.jsp" />
+		</action>
+
+		<action path="/view/iteration/features">
+			<forward name="display" path="/WEB-INF/jsp/view/iterationFeatures.jsp" />
+		</action>
+
+		<action path="/view/iteration/metrics">
+			<forward name="display" path="/WEB-INF/jsp/view/iterationMetrics.jsp" />
+		</action>
+
+		<action path="/view/iteration/statistics">
+			<forward name="display" path="/WEB-INF/jsp/view/iterationStatistics.jsp" />
+		</action>
+
+		<action path="/view/iteration/accuracy">
+			<forward name="display" path="/WEB-INF/jsp/view/iterationAccuracy.jsp" />
+		</action>
+
+		<action path="/export/iteration/xml" />
+
+		<action path="/export/iteration/mpx" />
+
+		<action path="/export/iteration/mspdi" />
+
+		<action path="/export/iteration/pdf" />
+
+		<action path="/export/iteration/jrpdf" />
+
+		<action path="/edit/iteration" name="edit/iteration"
+			input="/WEB-INF/jsp/edit/editIteration.jsp">
+		</action>
+
+		<action path="/start/iteration" input="/WEB-INF/jsp/edit/editIterationStatus.jsp"
+			name="start/iteration" scope="request">
+			<forward redirect="false" name="edit/time" path="/do/edit/time" />
+		</action>
+
+		<!-- DEBT: Why having the editIterationStatus.jsp for close?-->
+		<action path="/close/iteration" input="/WEB-INF/jsp/edit/editIterationStatus.jsp"
+			name="close/iteration">
+			<forward redirect="true" name="onclose"
+				path="/do/continue/unfinished/stories" />
+		</action>
+
+		<action path="/delete/iteration" name="iterationEditorForm" />
+
+		<action path="/edit/feature" input="/WEB-INF/jsp/edit/editFeature.jsp"
+			name="edit/feature">
+		</action>
+
+		<action path="/delete/feature" name="featureEditorForm" />
+
+		<action path="/view/userstory">
+			<forward name="display" path="/WEB-INF/jsp/view/userstory.jsp" />
+		</action>
+
+		<action path="/edit/userstory" input="/WEB-INF/jsp/edit/editStory.jsp"
+			name="edit/userstory">
+		</action>
+
+		<action path="/move/continue/userstory" input="/WEB-INF/jsp/edit/moveContinueStory.jsp"
+			name="move/continue/userstory">
+		</action>
+
+		<action path="/continue/unfinished/stories" input="/WEB-INF/jsp/edit/continueUnfinishedStories.jsp"
+			name="continue/unfinished/stories">
+		</action>
+
+		<action path="/export/userstory/pdf" />
+
+		<action path="/export/userstory/jrpdf" />
+
+		<action path="/delete/userstory" name="userStoryEditorForm" />
+
+		<action path="/view/task">
+			<forward name="display" path="/WEB-INF/jsp/view/task.jsp" />
+		</action>
+
+		<action path="/edit/task" input="/WEB-INF/jsp/edit/editTask.jsp" name="edit/task" />
+
+		<action path="/move/continue/task" input="/WEB-INF/jsp/edit/moveContinueTask.jsp"
+			name="move/continue/task" scope="session">
+		</action>
+
+		<action path="/export/task/pdf" />
+
+		<action path="/export/task/jrpdf" />
+
+		<action path="/edit/task/estimate" input="/WEB-INF/jsp/edit/editTaskEstimate.jsp"
+			name="edit/task/estimate" />
+
+		<action path="/delete/task" name="edit/task" />
+
+		<action path="/edit/note" input="/WEB-INF/jsp/edit/editNote.jsp"
+			name="edit/note" />
+
+		<action path="/delete/note" name="edit/note" />
+
+		<action name="/download/attachment" path="/download/attachment" />
+
+		<action path="/view/people" parameter="view/people" />
+
+		<action path="/export/person/jrpdf" />
+
+		<action path="/view/person">
+			<forward name="display" path="/WEB-INF/jsp/view/person.jsp" />
+		</action>
+
+		<action path="/edit/person" input="/WEB-INF/jsp/edit/editPerson.jsp"
+			name="edit/person">
+			<exception key="person.editor.userid_exist"
+				type="com.technoetic.xplanner.domain.repository.DuplicateUserIdException"
+				path="/WEB-INF/jsp/edit/editPerson.jsp" />
+		</action>
+
+		<!--      Todo Move importPeople.jsp to import/people.jsp-->
+		<action path="/import/people" input="/WEB-INF/jsp/edit/importPeople.jsp"
+			name="import/people" />
+
+		<action path="/import/stories" input="/WEB-INF/jsp/import/stories.jsp"
+			name="import">
+			<exception key="import.status.corrupted_file"
+				type="com.technoetic.xplanner.importer.WrongImportFileSpreadsheetImporterException"
+				path="/WEB-INF/jsp/import/stories.jsp" />
+			<exception key="import.status.missing_required_field"
+				type="com.technoetic.xplanner.importer.MissingFieldSpreadsheetImporterException"
+				path="/WEB-INF/jsp/import/stories.jsp" />
+			<exception key="import.status.wrong_header"
+				type="com.technoetic.xplanner.importer.MissingColumnHeaderSpreadsheetImporterException"
+				path="/WEB-INF/jsp/import/stories.jsp" />
+			<exception key="import.status.worksheet_not_found"
+				type="com.technoetic.xplanner.importer.MissingWorksheetException"
+				path="/WEB-INF/jsp/import/stories.jsp" />
+		</action>
+
+		<action path="/delete/person" name="edit/person" />
+
+		<action path="/edit/time" input="/WEB-INF/jsp/edit/editTimeEntries.jsp"
+			name="edit/time" scope="request">
+			<forward name="redirect" path="/do/view/task" redirect="true" />
+			<forward name="error" path="/WEB-INF/jsp/edit/editTimeEntries.jsp"
+				redirect="false" />
+		</action>
+
+		<action path="/edit/reorderstories" input="/do/view/iteration"
+			name="edit/reorderstories" scope="request">
+			<forward name="redirect" path="/do/view/iteration" redirect="true" />
+			<forward name="error" path="/WEB-INF/jsp/view/iteration.jsp"
+				redirect="false" />
+		</action>
+
+		<action path="/move/userstories" input="/WEB-INF/jsp/edit/moveStories.jsp"
+			name="move/userstories" scope="request">
+		</action>
+
+		<action path="/edit/project/notification" input="/WEB-INF/jsp/edit/editProject.jsp"
+			name="edit/project">
+			<forward redirect="false" name="project/notification"
+				path="/do/edit/project/notification" />
+		</action>
+
+		<action path="/view/timesheet" input="/WEB-INF/jsp/view/timesheet.jsp"
+			name="timesheetForm">
+			<forward redirect="false" name="error"
+				path="/WEB-INF/jsp/view/timesheet.jsp" />
+		</action>
+
+		<action path="/view/aggregateTimesheet" input="/WEB-INF/jsp/view/aggregateTimesheet.jsp"
+			name="aggregateTimesheetForm">
+			<forward redirect="false" name="error"
+				path="/WEB-INF/jsp/view/aggregateTimesheet.jsp" />
+		</action>
+
+		<action path="/view/dashboard" parameter="view/dashboard" />
+
+		<action path="/view/integrations" parameter="view/integrations" />
+
+		<action path="/edit/integrations" name="placeHolderForm">
+			<forward name="display" path="/do/view/integrations"
+				redirect="true" />
+			<forward name="error" path="/do/view/integrations" />
+		</action>
+
+		<action path="/view/history">
+			<forward name="display" path="/WEB-INF/jsp/view/history.jsp"
+				redirect="false" />
+		</action>
+
+		<action path="/view/directory" name="view/file">
+			<forward name="display" path="/WEB-INF/jsp/view/directory.jsp" />
+		</action>
+		
+		<action path="/view/settings" parameter="view/settings" />
+		
+		<action path="/admin/reload-tiles" />
+
+		<action path="/edit/roles" input="/WEB-INF/jsp/edit/editRoles.jsp"
+			name="edit/roles" scope="session">
+		</action>
+
+		<action path="/search/id" />
+
+		<action path="/search/content">
+			<forward name="success" path="/WEB-INF/jsp/view/searchResults.jsp" />
+		</action>
+
+		<action path="/edit/setting" name="edit/setting"
+			input="/WEB-INF/jsp/edit/editSetting.jsp">
+		</action>
+	</action-mappings>
+
+	<controller>
+		<set-property property="processorClass"
+			value="org.springframework.web.struts.DelegatingTilesRequestProcessor" />
+	</controller>
+
+	<plug-in className="org.apache.struts.tiles.TilesPlugin">
+		<set-property property="definitions-config" value="/WEB-INF/tiles-definitions.xml" />
+		<set-property property="definitions-debug" value="2" />
+		<set-property property="definitions-parser-details"
+			value="2" />
+		<set-property property="definitions-parser-validate"
+			value="true" />
+	</plug-in>
+
+	<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocation"
+			value="/WEB-INF/action-servlet.xml,/WEB-INF/classes/spring-beans.xml,/WEB-INF/test-action-servlet.xml" />
+	</plug-in>
+</struts-config>

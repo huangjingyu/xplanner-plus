@@ -1,0 +1,1031 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 3.0.0b1
+build: 1163
+*/ /* base.css, part of YUI's CSS Foundation */
+body {
+	color: #434242;
+}
+
+h1 { /*18px via YUI Fonts CSS foundation*/
+	font-size: 138.5%;
+}
+
+h2 { /*16px via YUI Fonts CSS foundation*/
+	font-size: 123.1%;
+}
+
+h3 { /*14px via YUI Fonts CSS foundation*/
+	font-size: 108%;
+}
+
+h1,h2,h3 { /* top & bottom margin based on font size */
+	margin: 6px 0;
+}
+
+h1,h2,h3,h4,h5,h6,strong,.title {
+	/*bringing boldness back to headers and the strong element*/
+	font-weight: bold;
+}
+
+abbr,acronym { /*indicating to users that more info is available */
+	border-bottom: 1px dotted #000;
+	cursor: help;
+}
+
+em { /*bringing italics back to the em element*/
+	font-style: italic;
+}
+
+blockquote,ul,ol,dl { /*giving blockquotes and lists room to breath*/
+	margin: 1em;
+}
+
+ol,ul,dl { /*bringing lists on to the page with breathing room */
+	margin-left: 2em;
+}
+
+ol li { /*giving OL's LIs generated numbers*/
+	list-style: decimal outside;
+}
+
+ul li { /*giving UL's LIs generated disc markers*/
+	list-style: disc outside;
+}
+
+dl dd { /*providing spacing for definition terms*/
+	margin-left: 1em;
+}
+
+th,td { /*borders and padding to make the table readable*/
+	border: 1px solid #000;
+	padding: 3px 10px 3px 10px;
+}
+
+th { /*distinguishing table headers from data cells*/
+	font-weight: bold;
+	text-align: center;
+	padding: 5px;
+}
+
+caption { /*coordinated margin to match cell's padding*/
+	margin-bottom: .5em;
+	/*centered so it doesn't blend in to other content*/
+	text-align: center;
+}
+
+fieldset,table,pre { /*so things don't run into each other*/
+	margin-bottom: 6px;
+}
+
+.noteHeader a,
+#objecttable img {
+	vertical-align: middle;
+	
+}
+.odd,
+.even
+ {
+height:30px;
+}
+
+/* setting a consistent width, 160px; 
+   control of type=file still not possible */
+input[type=text],input[type=password],textarea {
+	width: 12.25em; *
+	width: 11.9em;
+}
+
+/* nifty corners*/
+div.rounded div {
+	height: 1px;
+	overflow: hidden;
+}
+
+#radiusx,#radiusy {
+	text-align: right;
+	width: 30px;
+}
+
+/* custom.css */
+html {
+	background-color:#497dad;
+	background:#497dad -moz-linear-gradient(top, #1f507e, #497dad) no-repeat;
+	background:#497dad -webkit-linear-gradient(top, #1f507e, #497dad) no-repeat;
+	background:#497dad -o-linear-gradient(top, #1f507e, #497dad) no-repeat;
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#1f507e', EndColorStr='#497dad');
+	width: 100%;
+	height: 100%;
+	background-image: -o-linear-gradient(top,rgb(0,0,0),rgb(200,200,200));
+}
+
+body {
+	width: 100%;
+	height: 100%;
+}
+
+.object_name {
+	text-transform: uppercase;
+}
+
+h1,.title,.table_label {
+	color: #736f6f;
+	font-size: 100%;
+	
+}
+
+
+
+h1 a {
+	text-transform: uppercase;
+}
+
+h1 a,th a {
+	text-decoration: none;
+	font-style: normal;
+}
+
+table {
+	margin-bottom: 0px;
+}
+
+textarea {
+	width: 100%;
+	height: 181px;
+}
+
+.page {
+	width: 1020px;
+	margin: auto;
+	overflow: hidden;
+	padding-top: 20px;
+}
+.animated {
+	-webkit-transition-property: width;
+  	-webkit-transition-duration: 1s;
+  	-moz-transition-property: width;
+  	-moz-transition-duration: 1s;
+  	-o-transition-property: width;
+  	-o-transition-duration: 1s;
+}
+.page.wide{
+	width: 99%;
+}
+
+.page_body {
+	background: white;
+	border: 1px solid #1a4e7c;
+	border-top: 0px;
+	padding: 1px 8px 5px 8px;
+}
+
+.page_body a {
+	color: #205483;
+}
+
+.page_footer,.below_page_footer,.page_footer a,.below_page_footer a {
+	color: white;
+}
+
+.page_footer {
+	text-align: right;
+}
+
+.page_footer a {
+	color: #497dad;
+}
+
+.header>a {
+	float: left;
+}
+
+.search_box {
+	float: right;
+	width: 320px;
+	color: #c0e0f7;
+	text-align: right;
+}
+
+.search_box a {
+	color: #c0e0f7;
+}
+
+.borderedInput {
+	border: 1px solid #1e62a0;
+	background: #6c91b5;
+	padding: 1px;
+}
+
+.borderedInput div {
+	border: 1px solid #4f7ca4;
+}
+
+.searchInput div  {
+	height: 25px;
+	width: 230px;
+	background: url("../images/search-background.png") repeat-x;
+	line-height: 25px;
+	vertical-align: middle;
+	display: block;
+}
+
+.searchInput div span input {
+	background: transparent;
+	border: 0px;
+	width: 200px;
+}
+
+.breadcrumb {
+	height: 32px;
+	border: 1px solid #1a4e7c;
+	border-bottom: 0px;
+	background: url("../images/breadcrumb-gradient.gif") repeat-x;
+	clear: both;
+	text-align: right;
+	padding-left: 7px;
+}
+
+.search_box a {
+	position: relative;
+	top: -2px;
+}
+
+.breadcrumb a {
+	color: #205483;
+	font-size: 12px;
+	line-height: 30px;
+	margin-right: 10px;
+	text-decoration: none;
+}
+
+.breadcrumb>a {
+	float: left;
+	padding-right: 15px;
+	background: url("../images/breadcrumb-arrow.png") center right no-repeat;
+}
+
+.globalActions {
+	
+}
+
+.objecttable {
+	width: 100%;
+}
+
+.objecttable .last tr {
+	height: 1px;
+}
+
+.objecttable td a,.objecttable td p,#objecttable td p,#objecttable td a {
+	padding: 5px 0px 5px 0px;
+}
+
+.objecttable td.image a,.objecttable td a.image,#objecttable td.image a,#objecttable td a.image, .noteHeader a {
+	display: inline;
+	margin: 0px 4px 0px 0px;
+}
+
+.objecttable.time .small_th_1,.objecttable.time .small_th_2,.objecttable.time .small_th_3,.objecttable.time .small_th_6 {
+	width: 102px;
+}
+
+.objecttable.time .small_th_8 {
+	width: 400px;
+}
+
+.objecttable.time .small_th_8 input[type="text"] {
+	width: 98%;
+	padding: 1px 2px 1px 1px;
+}
+
+.objecttable_buttons input[type="button"],.objecttable_buttons input[type="submit"]	{
+	width: 100px;
+}
+
+.objecttable.time .small_th_7 {
+	width: 25px;
+}
+
+.objecttable.time .small_th_4,.objecttable.time .small_th_5,.objecttable.time .small_th_9 {
+	width: 32px;
+}
+
+.objecttable.time input[type="text"],.objecttable.time select {
+	width: 100px;
+	font-size: 11px;
+}
+
+.objecttable.time .objecttable {
+	padding: 1px;
+}
+
+.objecttable.time .small_th_4 input[type="text"],.objecttable.time .small_th_5 input[type="text"] {
+	width: 30px;
+}
+
+.objecttable .last td {
+	background: none;
+	/*   background:url("../images/table-bottom-border.png") repeat-x; */
+}
+
+.objecttable a {
+	text-decoration: none;
+}
+
+.objecttableTasks td,.objecttableTasks tr,.objecttableTasks th,.objecttable th,.objecttable td {
+	border: 1px solid white;
+}
+
+.objecttable_heading,div#login,.noteSectionHeader,#editObject,.objecttable thead th,.iterationCard .iterationCardHeader {
+	/*background: #5583AC url("../images/table-header-gradient.gif") repeat-x;*/
+	background: #5583AC; 
+	color: white;
+}
+#editObject, #login {
+	-webkit-border-radius:  8px 8px;
+	-moz-border-radius:  8px/8px;
+    border-radius:  8px/8px;
+    padding:8px;
+}
+* html #editObject{
+	padding:0px;
+}
+.botton_heading {
+	background: #5583AC;
+}
+
+.objecttable thead th a,#editObject .title,div#login td label,.help,.help a {
+	color: white;
+}
+
+.help {
+	margin-top: 10px;
+}
+
+.objecttable tr {
+}
+
+.charts tr td {
+	background: none;
+}
+
+.objecttable tr td {
+	background: #ECEBEB;
+}
+
+.charts tr td {
+	background: none;
+}
+
+#currentStatus {
+		float:left;
+		margin:0px 10px 10px 0px;
+}
+
+.accuracy {
+	display: block;
+	margin:10px 0px 10px 0px;
+}
+
+#iterationStatus {
+}
+
+#objecttable {
+}
+
+table.status,table.currentStatus {
+	width: 480px;
+}
+
+table.status {
+}
+
+.task_unassigned,.objecttable tr.task_unassigned td {
+	background: #DFECBA;
+}
+
+.task_unestimated,.objecttable tr.task_unestimated td {
+	background: #BFD0E0;
+}
+
+.infoTable {
+	margin: 5px 0px 5px 1px;
+	border: 0px;
+}
+
+.infoTable tr td{
+	margin:0px;
+	padding:1px 5px 0px 0px;
+}
+
+.infoTable th,td {
+	border: 0px;
+}
+
+#metrics,#metrics1 {
+	height: 12px;
+	border-top: white;
+	border-right: white;
+	border-bottom: #a0a0a0;
+	border-left: #a0a0a0;
+	border-width: 3px;
+}
+
+#metrics1 tr td.pairedHours,#metrics tr td.pairedHours {
+	background: #a0a0a0;
+}
+
+#metrics1 tr td.unpairedHours,#metrics tr td.unpairedHours {
+	background: #c0c0c0;
+}
+
+/*
+.task_completed {
+background:#E6EDF3;
+}
+
+.task_started {
+background:#DFECBA; 
+} 
+.objecttable tr td{
+  background:#ECEBEB; 
+}
+
+*/
+.objecttable tr.iteration_current td,.objecttable tr.active td {
+	background: #BFD0E0;
+}
+
+.objecttable tr td {
+}
+
+.objecttable tr.odd td {
+	background: #dfecba;
+}
+
+.objecttable tr.even td {
+	background: #e6edf3;
+}
+
+.objecttable tbody tr td input {
+	width: 20px;
+}
+
+.right {
+	float: right;
+}
+
+.links {
+	margin: 5px 0px 3px 0px;
+	display: block;
+	clear: both;
+}
+
+.links a {
+	margin-right: 15px;
+}
+
+#objectDescription {
+	display: none;
+}
+
+.note_header td {
+	border: none;
+}
+
+.progressbar td {
+	font-size: 14px;
+	line-height: 14px;
+	padding: 0px;
+}
+
+.progressbar .progressbar_uncompleted {
+	background: url("../images/uncompleted_background_big.png") repeat-x;
+	border: 1px solid #b90000;
+}
+
+.progressbar .progressbar_completed {
+	background: url("../images/completed_background_big.png") repeat-x;
+	border: 1px solid #8fc002;
+}
+
+.progressbar .progressbar_unworked {
+	background: url("../images/uncompleted_background_big1.png") repeat-x;
+	border: 1px solid #b90000;
+}
+
+.objecttable .progressbar td {
+	font-size: 8px;
+	line-height: 8px;
+}
+
+.objecttable .progressbar {
+	margin-bottom: 1px;
+}
+
+.objecttable .progressbar .progressbar_uncompleted {
+	background: url("../images/uncompleted_background.png") repeat-x;
+	border: 1px solid #b90000;
+}
+
+.objecttable .progressbar .progressbar_completed {
+	background: url("../images/completed_background.png") repeat-x;
+	border: 1px solid #8fc002;
+}
+
+.progressbar_exceeded {
+	background-color: #FFA0A0;
+}
+
+.objecttable .progressbar .progressbar_unworked {
+	background: url("../images/remaining_background.png") repeat-x;
+	border: 1px solid #b90000;
+}
+
+div#login {
+	width: 410px;
+	margin: 0 auto;
+}
+
+#login table {
+	margin-top: 10px;
+	margin-right: 10px;
+	width: 370px;
+}
+
+#login table .label {
+	width: 123px;
+}
+
+#login table td {
+	border: 0px;
+	text-align: right;
+}
+
+#login .leftAligned {
+	text-align: left;
+}
+
+.userName .borderedInput,.password .borderedInput {
+	width: 247px;
+}
+
+.userName input,.password input {
+	background: url("../images/search-background.png") repeat-x;
+	border: none;
+	width: 100%;
+}
+
+.rememberMe input {
+	margin-right: 15px;
+}
+
+.rememberMe {
+	vertical-align: middle;
+}
+
+#login .submit input {
+	border: none;
+	width: 151px;
+	height: 31px;
+	background: url("../images/greenButton.png");
+	color: white;
+	font-weight: bold;
+	line-height: 25px;
+}
+
+.completeBtn {
+	width: 600px;
+	margin-top: 10px;
+}
+
+.completeBtn input[type="submit"] {
+	border: 1px solid #57812f;
+	padding:0px 10px 0px 10px;
+	height: 24px;
+	color: white;
+	font-weight: bold;	
+	margin-top: -30px;
+	float: right;
+	cursor: pointer;
+	border-radius: 5px;
+	background: #89b801; /* for non-css3 browsers */	
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ace700', endColorstr='#89b801'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#ace700), to(#89b801)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #ace700,  #89b801); /* for firefox 3.6+ */ 
+ text-shadow: 1px 1px 1px #57812f;
+}
+
+.completeBtn input[type="submit"]:hover {
+	background: #89b801; /* for non-css3 browsers */	
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#92c205', endColorstr='#769d03'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#92c205), to(#769d03)); /* for webkit browsers */
+		background: -moz-linear-gradient(top,  #92c205,  #769d03); /* for firefox 3.6+ */ 
+}
+
+.noteSectionHeader,.notesTable {
+	width: 100%;
+}
+
+.noteSectionHeader td,.notesTable td,#editObject td,#editObject th,.iterationCard .info td,.iterationCard .info th
+	{
+	border: none;
+}
+
+.noteSectionHeader a {
+	color: white;
+}
+
+.noteHeader div,.noteHeader li,.addRecipient>div {
+	float: left;
+}
+
+.noteHeader {
+	background: #dfecba;
+	
+}
+
+.noteHeader li {
+	list-style: none;
+	margin-left: 10px;
+}
+
+.noteHeader ul {
+	margin-top: 5px;
+}
+
+.noteBody {
+	background: #e6edf3;
+}
+
+.notesTable tr {
+	border-bottom: 1px solid white;
+	border-top: 1px solid white;
+}
+
+#editObject th {
+	text-align: right;
+}
+
+#editObject,#editObject1,.editor {
+	width: 510px;
+}
+
+#editObject select,#editObject1 input,#editObject input,textarea {
+	background: white url("../images/search-background.png") repeat-x;
+	border: none;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#editObject input[type="file"] {
+		background: none;
+		color: white;
+	}
+}
+
+#editObject .dateInput input[type="file"] {
+	width: 150px;
+}
+
+#editObject input[type="file"],#editObject input[type="text"],#editObject select,#editObject input[type="password"] {
+	width: 100%;
+}
+
+#editObject #timesheet input[type="text"] {
+	width: 80%;
+}
+
+.editor input#startDate,.editor input#endDate {
+	width: 245px;
+}
+
+#editObject1 .dateInput input[type="image"],#editObject .dateInput input[type="image"] {
+	height: 17px;
+}
+
+#editObject p {
+	width: 390px;
+	margin: 0px;
+}
+
+.iterationCard {
+	background-image: url("../images/squaredPaper.png");
+	background-repeat: repeat;
+	width: 600px;
+	border: 1px solid #80A5C6;
+	margin-bottom: 10px;
+	min-height: 25px;
+}
+
+.iterationCardHeader { /*  height:25px; */
+	padding: 5px 0px 5px 0px;
+	width: 100%;
+}
+
+.iterationCardHeader>strong {
+	/*float: left;
+	width: 330px;*/
+	overflow: hidden;
+	margin: 0px 10px 10px 5px;
+}
+
+.iterationCard .progressbar {
+	float: right;
+	margin: 0px 5px 0px 0px;
+}
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.iterationCard .progressbar {
+		float: right;
+		margin-top: 2px;
+	}
+}
+*/
+.iterationCard .tableTitle {
+	font-weight: bold;
+	margin: 0px 5px 5px 5px;
+}
+
+.table_label {
+	font-weight: bold;
+}
+
+.table_label td,
+.charts td{
+	text-align:center;
+}
+
+.iterationCard .description {
+	margin: 5px 10px 0px 5px;
+	line-height:18px;
+}
+
+.iterationCard .delimeter {
+	border-top: 1px solid #C5DC82;
+	border-bottom: 1px solid #D0E2A3;
+	background: none;
+}
+
+.iterationCard .info {
+	width: 100%;
+}
+
+.iterationCard .info th {
+	text-align: right;
+}
+
+.firstColumn {
+	width: 100px;
+}
+
+#editObject1 .objecttable_buttons input,#editObject .objecttable_buttons input {
+	background: url("../images/greenSmallButton.png") no-repeat;
+	height: 31px;
+	width: 77px;
+	color: white;
+	cursor: pointer;
+}
+
+.addRecipient .borderedInput {
+	width: 220px;
+	margin: 1px 10px 0px 0px;
+}
+
+#roles .borderedInput select {
+	width: 100px;
+}
+
+#selectedPeople select {
+	width: 140px;
+	border: 0px;
+}
+
+#selectedPeople .borderedInput {
+	width: 143px;
+}
+
+.selectedDates {
+	width: 300px;
+	clear: right;
+}
+
+.strip {
+	height: 20px;
+	padding: 2px 0px 2px 0px;
+	margin: 0px 0px 10px 0px;
+	width: 100%;
+	clear: left;
+	background: #5583AC url(../images/table-header-gradient.gif) repeat-x
+		scroll 0 0;
+}
+
+.strip b {
+	color: white;
+	margin: 0px 0px 0px 5px;
+}
+
+.saveOrder {
+	float: right;
+	position: relative;
+	top: -19px;
+}
+
+.moveMultiple {
+	float: right;
+	margin-right: 15px;
+	position: relative;
+	top: -19px;
+}
+
+.saveOrderBottom {
+	text-align: right;
+	width: 100%;
+	padding: 0px 0px 4px 0px;
+	display: block;
+}
+
+.highlighted_message,.pagelinks,.pagebanner,.stop {
+	color: #999999;
+	font-family: 'Trebuchet MS', Trebuchet, Arial, Verdana;
+	margin: 5px 0px 5px 0px;
+	line-height: 22px;
+}
+
+.errorMessage {
+	color: red;
+}
+
+.SFlogo {
+	float: left;
+	margin: 0px 10px 0px 0px;
+}
+
+.below_page_footer {
+	
+}
+.page_footer {
+	text-align:left;
+}
+.page_footer span{
+	float:right;
+}
+.loginForm {
+	margin-top: 5px;
+}
+
+.cool {
+	width: 100%;
+	border: 1px solid red;
+}
+
+/*
+ * box styles used by the boxXXX custom tags
+ */
+.propertyName {
+	font-weight: bold;
+}
+
+.propertyValue {
+	color: dimgray;
+}
+
+.box,.box h3 {
+	border: 1px #ccc solid
+}
+
+.box {
+	font-size: 0.8em;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	background-color: #fff;
+	padding: 0px;
+	margin: 0 0 7px 0;
+}
+
+.box h3 {
+	font-weight: bold;
+	border-width: 0 0 1px 0;
+	color: #0a0a0a;
+	background-color: #f9f9ff;
+	padding: 2px 0 2px 10px;
+	margin: 0px;
+}
+
+.boxIcon {
+	float: right;
+	font-weight: normal;
+	font-size: 0.9em;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+	margin-right: 5px;
+}
+
+.boxIcon img {
+	border-width: 0px;
+	margin-right: 5px;
+}
+
+.boxIconText {
+	vertical-align: top;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.boxBody {
+	font-weight: normal;
+	padding: 0 15px 0 30px;
+	/*padding: 4px 10px 4px 4px;*/
+	margin: 4px;
+}
+
+.boxBody ul {
+	padding: 0px 0 0px 10px;
+}
+
+.boxBody pre {
+	padding: 0;
+	font-size: 1.2em;
+}
+
+img[src="/xplanner/images/edit.png"] {
+	
+}
+
+.deleteTooltip {
+	cursor: pointer;
+	background: #6fa6d9;
+	display: none;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	text-align: left;
+	height: 17px;
+	padding: 5px;
+	position: absolute;
+	margin-top:-2px;
+}
+
+strong {
+	margin:0px 4px 0px 0px;
+}
+
+.tw img{
+	margin: 0px 1px 0px 5px;	
+	
+}
+.storyB{
+	background:green;	
+}
+.page_footer span{
+	line-height:20px;
+	margin:5px 0px 0px 0px;
+	cursor:pointer;
+}
+.page_footer img {
+	margin:0px 0px 0px 6px;
+}
+.ticket{
+   	background-image: url("../images/squaredPaper.png");
+	background-repeat: repeat;
+	border: 1px solid #80A5C6;
+	width:270px;
+	height:150px;
+	cursor: pointer;
+    float:left;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    margin:0px 5px 10px 2px;
+    overflow:hidden;
+    border-radius:3px;
+}
+        
+.ticketHeader {
+	background: #5583AC; 
+	color: white;
+	padding:2px 4px 3px 5px;
+	font-size:12px;
+}  
+.ticketDescription {
+	padding:2px 4px 3px 5px;
+	font-size:12px;
+	line-height:18px;
+}     
+.noteSectionHeader, .notesTable {
+	width:100%;
+	}
+#editObject>p {
+	margin:10px 10px 0px 10px;
+}
+#remarks th {
+	text-align:left;
+}
+#remarks{
+	margin:10px 0px 0px 4px;
+}
+.storyHeader {
+	text-transform: uppercase;
+}
+.container .title {
+	float:left;
+}

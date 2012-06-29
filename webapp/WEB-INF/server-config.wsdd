@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="attachments.Directory" value="C:\projects\xplanner-soap\xplanner\war\WEB-INF\attachments"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <handler name="MsgDispatcher" type="java:org.apache.axis.providers.java.MsgProvider"/>
+ <handler name="RPCDispatcher" type="java:org.apache.axis.providers.java.RPCProvider"/>
+ <service name="XPlanner" provider="java:RPC">
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="className" value="com.technoetic.xplanner.soap.XPlanner"/>
+ </service>
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="java:org.apache.axis.transport.local.LocalResponder"/>
+  </responseFlow>
+ </transport>
+ <beanMapping languageSpecificType="java:com.technoetic.xplanner.soap.domain.ProjectData" qname="ns1:ProjectData" xmlns:ns1="http://xplanner.org/soap"/>
+ <beanMapping languageSpecificType="java:com.technoetic.xplanner.soap.domain.IterationData" qname="ns2:IterationData" xmlns:ns2="http://xplanner.org/soap"/>
+ <beanMapping languageSpecificType="java:com.technoetic.xplanner.soap.domain.UserStoryData" qname="ns3:UserStoryData" xmlns:ns3="http://xplanner.org/soap"/>
+ <beanMapping languageSpecificType="java:com.technoetic.xplanner.soap.domain.TaskData" qname="ns4:TaskData" xmlns:ns4="http://xplanner.org/soap"/>
+ <beanMapping languageSpecificType="java:com.technoetic.xplanner.soap.domain.FeatureData" qname="ns4:FeatureData" xmlns:ns4="http://xplanner.org/soap"/>
+ <beanMapping languageSpecificType="java:com.technoetic.xplanner.soap.domain.TimeEntryData" qname="ns5:TimeEntryData" xmlns:ns5="http://xplanner.org/soap"/>
+ <beanMapping languageSpecificType="java:com.technoetic.xplanner.soap.domain.NoteData" qname="ns6:NoteData" xmlns:ns6="http://xplanner.org/soap"/>
+ <beanMapping languageSpecificType="java:com.technoetic.xplanner.soap.domain.PersonData" qname="ns7:PersonData" xmlns:ns7="http://xplanner.org/soap"/>
+</deployment>

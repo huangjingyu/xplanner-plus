@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- Property xplanner.root is defined in the web.xml in the context param "webAppRootKey" -->
+
+<log4j:configuration>
+  <appender name="CONSOLE-WARN" class="org.apache.log4j.ConsoleAppender">
+    <param name="target" value="System.err"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="WARN"/>
+    </filter>
+  </appender>
+
+  <appender name="CONSOLE-DEBUG" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <!--<param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n"/>-->
+      <!--<param name="ConversionPattern" value="%r [%t] %-5p %c{2} - %m%n  \n"/>-->
+      <param name="ConversionPattern" value="[%7r][%.5t] %.4p - %.30c - %m%n"/>
+      <!--<param name="ConversionPattern" value="%d{ISO8601} [%t] %-5p %c{2} - %m%n"/>-->
+      <!--2005-12-19 17:00:10,279 [http-8080-Processor25] DEBUG hibernate.XPlannerSessionFactory - Session.new() -> org.hibernate.impl.SessionImpl@9830bc1 opened-->
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="DEBUG"/>
+    </filter>
+  </appender>
+  <appender name="CONSOLE-ALL" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%7r] %6p - %30c - %m \r\n"/>
+    </layout>
+  </appender>
+
+  <appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+    <param name="MaxFileSize" value="1Mb"/>
+    <param name="MaxBackupIndex" value="3"/>
+    <param name="file" value="${xplanner-plus.root}xplanner-plus.log"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d [%7r] %6p - %30.30c - %m \n\r\n\r"/>
+    </layout>
+  </appender>
+
+  <appender name="ACTIVITY_FILE" class="org.apache.log4j.RollingFileAppender" >
+    <param name="File" value="${xplanner-plus.root}xplanner-plus-activity.log" />
+    <param name="Append" value="true" />
+    <param name="MaxFileSize" value="5MB"/>
+    <param name="MaxBackupIndex" value="50"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%m%n"/>
+    </layout>
+  </appender>
+
+  <category name="com.technoetic.xplanner.filters.ActivityLogFilter" additivity="false">
+    <priority value= "INFO"/>
+    <appender-ref ref="ACTIVITY_FILE"/>
+    <appender-ref ref="CONSOLE-ALL"/>
+  </category>
+
+  <root>
+    <priority value="INFO"/>
+    <appender-ref ref="CONSOLE-ALL"/>
+    <!--    <appender-ref ref="FILE"/>-->
+  </root>
+</log4j:configuration>

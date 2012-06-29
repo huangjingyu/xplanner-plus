@@ -1,0 +1,36 @@
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://struts.apache.org/dtds/tiles-config_1_1.dtd">
+<tiles-definitions>
+    <definition name="tiles:default" page="/WEB-INF/jsp/layout/defaultLayout.jsp">
+        <put name="title" value=""/>
+        <put name="header" value="/WEB-INF/jsp/common/header.jsp"/>
+        <put name="body" value=""/>
+        <put name="footer" value="/WEB-INF/jsp/common/footer.jsp"/>
+    </definition>
+    <definition name="tiles:view" page="/WEB-INF/jsp/layout/viewLayout.jsp">
+        <put name="displayMode" value="screen"/>
+        <put name="name" value=""/>
+        <put name="type" value=""/>
+        <put name="showTitle" value="true"/>
+        <put name="titlePrefix" value="" direct="true"/>
+        <put name="titleSuffix" value="" direct="true"/>
+        <put name="actions" value=" " direct="true"/>
+        <put name="progress" value=" " direct="true"/>
+        <put name="footer" value="/WEB-INF/jsp/common/footer.jsp"/>
+        <put name="header" value="/WEB-INF/jsp/layout/viewHeader.jsp"/>
+    </definition>
+    <definition name="tiles:print" extends="tiles:view" >
+        <put name="displayMode" value="print"/>
+        <put name="header" value="" direct="true" />
+        <put name="body" value=""/>
+        <put name="footer" value="" direct="true" />
+    </definition>
+    <definition name="tiles:edit" page="/WEB-INF/jsp/layout/defaultEditLayout.jsp">
+        <put name="header" value="/WEB-INF/jsp/common/baseHeader.jsp"/>
+        <put name="showTitleSuffix" value="false"/>
+        <put name="titleSuffix" value=""/>
+        <put name="footer" value="/WEB-INF/jsp/common/footer.jsp"/>
+    </definition>
+
+</tiles-definitions>

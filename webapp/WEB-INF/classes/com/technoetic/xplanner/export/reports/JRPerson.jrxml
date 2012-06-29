@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="JRPerson" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+	<parameter name="PersonName" class="java.lang.String">
+	</parameter>
+	<field name="IterationName" class="java.lang.String">
+	</field>
+	<field name="IterationStartDate" class="java.util.Date">
+	</field>
+	<field name="IterationEndDate" class="java.util.Date">
+	</field>
+	<field name="StoryName" class="java.lang.String">
+	</field>
+	<field name="StoryEstimatedHours" class="java.lang.Double">
+	</field>
+	<field name="TaskName" class="java.lang.String">
+	</field>
+	<field name="TaskPercentage" class="java.lang.Integer">
+	</field>
+	<field name="TaskDisposition" class="java.lang.String">
+	</field>
+	<field name="TaskType" class="java.lang.String">
+	</field>
+	<field name="TaskEstimate" class="java.lang.Double">
+	</field>
+	<field name="TaskCompleted" class="java.lang.Boolean">
+	</field>
+	<field name="TaskActive" class="java.lang.Boolean">
+	</field>
+	<group name="IterationGroup" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="60">
+		<groupExpression><![CDATA[$F{IterationName}]]></groupExpression>
+		<groupHeader>
+		<band height="35">
+			<rectangle>
+				<reportElement positionType="Float" x="0" y="5" width="515" height="15" backcolor="#808080"/>
+				<graphicElement/>
+			</rectangle>
+			<textField>
+				<reportElement positionType="Float" x="0" y="5" width="515" height="15" forecolor="#ffffff" backcolor="#808080"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{IterationName} + " ("
+            + String.valueOf($F{IterationStartDate}) + " - " +
+            String.valueOf($F{IterationEndDate}) + ")"]]></textFieldExpression>
+			</textField>
+		</band>
+		</groupHeader>
+	</group>
+	<group name="StoryGroup" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="60">
+		<groupExpression><![CDATA[$F{StoryName}]]></groupExpression>
+		<groupHeader>
+		<band height="20">
+			<rectangle>
+				<reportElement positionType="Float" x="0" y="4" width="515" height="15" forecolor="#c0c0c0" backcolor="#c0c0c0"/>
+				<graphicElement/>
+			</rectangle>
+			<textField>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="4" width="450" height="15" backcolor="#c0c0c0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{StoryName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" mode="Opaque" x="460" y="4" width="55" height="15" backcolor="#c0c0c0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{StoryEstimatedHours} == null) ? "" : $F{StoryEstimatedHours} + "h"]]></textFieldExpression>
+			</textField>
+		</band>
+		</groupHeader>
+	</group>
+	<columnHeader>
+		<band height="25">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="200" height="25"/>
+				<textElement/>
+				<text><![CDATA[Task]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="205" y="0" width="50" height="25"/>
+				<textElement/>
+				<text><![CDATA[Pct]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="260" y="0" width="70" height="25"/>
+				<textElement/>
+				<text><![CDATA[Disposition]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="335" y="0" width="70" height="25"/>
+				<textElement/>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="410" y="0" width="50" height="25"/>
+				<textElement/>
+				<text><![CDATA[Active]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="465" y="0" width="50" height="25"/>
+				<textElement/>
+				<text><![CDATA[Estimate]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement positionType="Float" x="0" y="0" width="200" height="15">
+					<printWhenExpression><![CDATA[$F{TaskCompleted}.booleanValue()?Boolean.TRUE:Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TaskName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="0" width="200" height="15">
+					<printWhenExpression><![CDATA[$F{TaskCompleted}.booleanValue()?Boolean.FALSE:Boolean.TRUE]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TaskName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="205" y="0" width="50" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{TaskPercentage}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="260" y="0" width="70" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TaskDisposition}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="335" y="0" width="70" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TaskType}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="410" y="0" width="50" height="15">
+					<printWhenExpression><![CDATA[$F{TaskActive}.booleanValue()?Boolean.TRUE:Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[Yes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="410" y="0" width="50" height="15">
+					<printWhenExpression><![CDATA[$F{TaskActive}.booleanValue()?Boolean.FALSE:Boolean.TRUE]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="465" y="0" width="50" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{TaskEstimate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

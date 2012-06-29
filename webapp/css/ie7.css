@@ -1,0 +1,49 @@
+/* css for ie7 */
+.searchInput div.right span.right{
+  width:232px;
+}
+.breadcrumb{
+ margin-top:3px;
+ border:1px solid #1a4e7c;
+ border-bottom:0px;
+ border-right:0px;
+
+}
+.page_body {
+	border:1px solid #1A4E7C;
+	border-left:0px;
+	border-right:1px;
+	border-width: 0px 0px 1px 1px;
+	padding:1px 8px 5px 8px;
+}
+.editor{
+  width:100%;
+}
+
+#editObject td.secondColumn {
+ width:273px;
+
+}
+
+#editObject.editProject .borderedInput input[type=text] {
+  width:100%;
+}
+
+/*
+#editObject .borderedInput input[type=text] {
+  width:267px;
+}
+*/
+
+#editObject #endDate, #editObject #startDate {
+	width:230px;
+}
+
+#editObject input[type=checkbox] {
+	border:none;
+	background:none;
+}
+#editObject input[type="file"] {
+	 background:white url("../images/search-background.png") repeat-x;
+  border:none;
+}

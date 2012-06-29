@@ -1,0 +1,1 @@
+mvn eclipse:eclipse -Pdevelopment,tomcat6,mysql -Dwtpversion=2.0

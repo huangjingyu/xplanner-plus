@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans default-autowire="no" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+       
+  <description>XPlanner+ Dao Beans</description>
+
+  <!-- enable the configuration of transactional behavior based on annotations -->
+  <tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<bean id="commonDao" class="net.sf.xplanner.dao.impl.CommonDao">
+	  <property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="taskDao" class="net.sf.xplanner.dao.impl.TaskDaoImpl">
+	  <property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="userStoryDao" class="net.sf.xplanner.dao.impl.UserStoryDaoImpl">
+	  <property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="projectDao" class="net.sf.xplanner.dao.impl.ProjectDaoImpl">
+	  <property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="viewDao" class="net.sf.xplanner.dao.impl.ViewDaoImpl">
+	  <property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="viewManager" class="net.sf.xplanner.rest.ViewManager">
+	  <property name="viewDao" ref="viewDao" />
+	</bean>
+	
+	<bean id="updateManager" class="net.sf.xplanner.rest.UpdateManager">
+	  <property name="taskDao" ref="taskDao" />
+	</bean>
+	
+  <bean id="dataSampleDao" class="net.sf.xplanner.dao.impl.DataSampleDaoImpl">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="settingDao" class="net.sf.xplanner.dao.impl.SettingDaoImpl">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="objectTypeDao" class="net.sf.xplanner.dao.impl.ObjectTypeDaoImpl">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="attributeDao" class="net.sf.xplanner.dao.impl.AttributeDaoImpl">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+	<bean id="idSearchHelper" class="com.technoetic.xplanner.db.IdSearchHelper" autowire="byName" />
+	
+	<bean id="historySupport" class="com.technoetic.xplanner.history.HistorySupport">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

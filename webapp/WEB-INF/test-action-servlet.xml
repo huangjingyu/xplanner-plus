@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+    <bean name="/edit/dataSample"
+            class="com.technoetic.xplanner.actions.CommandExecutorAction">
+        <property name="task"><ref bean="txDataSamplingCommand"/></property>
+    </bean>
+
+    <bean name="/edit/missingTimeEntryNotification"
+            class="com.technoetic.xplanner.actions.CommandExecutorAction">
+        <property name="task"><ref bean="missingTimeEntryNotifier"/></property>
+    </bean>
+
+    <bean name="/edit/putTheClockForward"
+            class="com.technoetic.xplanner.actions.PutTheClockForwardAction">
+        <property name="timeGenerator"><ref bean="timeGenerator"/></property>
+    </bean>
+
+    <bean name="/edit/properties" class="com.technoetic.xplanner.actions.EditPropertiesAction">
+    </bean>
+
+    <bean name="/invalidateCache" class="com.technoetic.xplanner.actions.admin.InvalidateCacheAction">
+        <property name="authorizer">
+          <ref bean="authorizer"></ref>
+        </property>
+        <property name="cacheMap">
+          <ref bean="resultByArgsByMethodName"></ref>
+        </property>
+    </bean>
+
+
+    <bean name="/invalidateHibernateCache" class="com.technoetic.xplanner.actions.admin.InvalidateHibernateCacheAction">
+        <property name="sessionFactory">
+          <ref bean="sessionFactory"></ref>
+        </property>
+    </bean>
+
+</beans>

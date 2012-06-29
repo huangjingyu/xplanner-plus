@@ -1,0 +1,25 @@
+#set ($acceptorName = "")
+<html>
+<head>
+   <style>
+      $style
+   </style>
+</head>
+<body>
+$header<br><br>
+<table class="objecttable">
+    <thead><tr><th>$title</th><th>$task.name</th></tr><thead>
+    <tbody>
+      <tr>
+		    <td>acceptorName: $asignee</td>
+			  <td>creator: $creator</td>
+      </tr>
+      <tr>
+         <td colspan="2"><a href="$hostUrl/do/view/task?oid=$task.id">$task.name</a></td>
+      </tr>
+    </tbody>
+</table>
+<br>
+$footer
+</body>
+</html>

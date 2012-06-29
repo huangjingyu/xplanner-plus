@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans default-autowire="no" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+       
+  <description>General XPlanner Spring Beans</description>
+    <!-- support beans -->
+  <!-- DEBT Most of these beans don't need an id. The class name should be enough -->
+  <!-- DEBT Use autowiring to clean up this file-->
+  <!-- DEBT At least use camel casing for name/id datasamplingJob should be dataSamplingJob. -->
+  <!-- DEBT Make the propertyConfigurer work off of XPlannerProperties => Make XPlannerProperties work like a Properties -->
+
+  <!-- DEBT Turn the specification of the custom property file in spring only and not in the XPlannerProperties code-->
+  <bean id="properties" class="com.technoetic.xplanner.XPlannerProperties" factory-method="getProperties">
+    <!--<constructor-arg>-->
+    <!--<list>-->
+    <!--<value>classpath:xplanner.properties</value>-->
+    <!--<value>classpath:${xplanner.overrides}</value>-->
+    <!--</list>-->
+    <!--</constructor-arg>-->
+  </bean>
+  
+  <!--
+      Configurer that replaces ${...} placeholders in this config file with values from properties files.
+  -->
+  <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" depends-on="properties">
+    <property name="properties"><ref local="properties"/></property>
+  </bean>
+  
+  
+  <import resource="spring-caching.xml"/>
+  <import resource="spring-dao.xml"/>
+  <import resource="spring-security.xml"/>
+
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="basename">
+			<value>classpath:ResourceBundle</value>
+		</property>
+		<property name="fallbackToSystemLocale" value="false" />
+	</bean>
+	<bean id="strutsMessageSource" class="net.sf.xplanner.struts.XPlannerMessageResources">
+		<property name="messageSource" ref="messageSource" />
+	</bean>
+	
+  <context:component-scan base-package="net.sf.xplanner.rest" />
+  
+  <bean id="domainSpecificPropertiesFactory" class="com.technoetic.xplanner.DomainSpecificPropertiesFactory">
+    <constructor-arg><ref local="sessionFactory"/></constructor-arg>
+    <constructor-arg><ref local="properties"/></constructor-arg>
+  </bean>
+
+  <!-- ====================================== -->
+  <!-- PERSISTENCE                            -->
+  <!-- ====================================== -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" depends-on="propertyConfigurer">
+  	<property name="driverClassName" value="${hibernate.connection.driver_class}" />
+  	<property name="url" value="${hibernate.connection.url}" />
+  	<property name="username" value="${hibernate.connection.username}" />
+  	<property name="password" value="${hibernate.connection.password}"/>
+  </bean>
+  
+  <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+    <property name="dataSource" ref="dataSource" />
+    <property name="changeLog" value="classpath:db-changelog.xml" />
+    <property name="contexts" value="test, production" />
+  </bean>
+  
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" depends-on="liquibase">
+  	<property name="dataSource" ref="dataSource" />
+  	<property name="packagesToScan" value="net.sf.xplanner.domain"></property>
+  	<property name="mappingLocations" value="classpath:/mappings/Metrics.xml" />
+  </bean>
+  
+  <!-- bean id="sessionFactory" class="com.technoetic.xplanner.db.hibernate.HibernateHelper"
+        factory-method="getSessionFactory"/> -->
+  <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="springTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate"
+        autowire="byName"/>
+  <bean id="transactionTemplate" class="com.technoetic.xplanner.tx.CheckedExceptionHandlingTransactionTemplate"
+        autowire="byName"/>
+  <!--<bean id="hibernateInterceptor" class="org.springframework.orm.hibernate.HibernateInterceptor" autowire="byName"/>-->
+
+  <!--TODO MP Let's use AOP to provide history logging and security -->
+  <bean id="objectRepositoryFactory" class="com.technoetic.xplanner.domain.repository.ObjectRepositororyFactory">
+    <property name="delegates">
+      <list>
+        <value type="java.lang.Class">com.technoetic.xplanner.domain.repository.RepositoryHistoryAdapter</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="secureObjectRepositoryFactory" class="com.technoetic.xplanner.domain.repository.ObjectRepositororyFactory">
+    <property name="delegates">
+      <list>
+        <value type="java.lang.Class">com.technoetic.xplanner.domain.repository.RepositoryHistoryAdapter</value>
+        <value type="java.lang.Class">com.technoetic.xplanner.domain.repository.RepositorySecurityAdapter</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="metaRepository" class="com.technoetic.xplanner.domain.repository.MetaRepositoryImpl">
+    <property name="repositories">
+      <map>
+        <!-- DEBT Still a lot of duplicated configuration -->
+        <entry>
+          <key><value type="java.lang.Class">net.sf.xplanner.domain.Project</value></key>
+          <bean factory-bean="secureObjectRepositoryFactory" factory-method="create">
+            <constructor-arg type="java.lang.Class" value="net.sf.xplanner.domain.Project"/>
+          </bean>
+        </entry>
+        <entry>
+          <key><value type="java.lang.Class">net.sf.xplanner.domain.Iteration</value></key>
+          <bean factory-bean="secureObjectRepositoryFactory" factory-method="create">
+            <constructor-arg type="java.lang.Class" value="net.sf.xplanner.domain.Iteration"/>
+          </bean>
+        </entry>
+        <entry>
+          <key><value type="java.lang.Class">net.sf.xplanner.domain.UserStory</value></key>
+          <bean factory-bean="secureObjectRepositoryFactory" factory-method="create">
+            <constructor-arg type="java.lang.Class" value="net.sf.xplanner.domain.UserStory"/>
+          </bean>
+        </entry>
+        <entry>
+          <key><value type="java.lang.Class">net.sf.xplanner.domain.Task</value></key>
+          <bean factory-bean="secureObjectRepositoryFactory" factory-method="create">
+            <constructor-arg type="java.lang.Class" value="net.sf.xplanner.domain.Task"/>
+          </bean>
+        </entry>
+        <entry>
+          <key><value type="java.lang.Class">net.sf.xplanner.domain.Person</value></key>
+          <bean factory-bean="secureObjectRepositoryFactory" factory-method="create">
+            <constructor-arg type="java.lang.Class" value="net.sf.xplanner.domain.Person"/>
+            <constructor-arg type="java.lang.Class"
+                             value="com.technoetic.xplanner.domain.repository.PersonHibernateObjectRepository"/>
+          </bean>
+        </entry>
+        <entry>
+          <key><value type="java.lang.Class">net.sf.xplanner.domain.Role</value></key>
+          <bean factory-bean="secureObjectRepositoryFactory" factory-method="create">
+            <constructor-arg type="java.lang.Class" value="net.sf.xplanner.domain.Role"/>
+          </bean>
+        </entry>
+        <entry>
+          <key><value type="java.lang.Class">net.sf.xplanner.domain.Note</value></key>
+          <bean factory-bean="secureObjectRepositoryFactory" factory-method="create">
+            <constructor-arg type="java.lang.Class" value="net.sf.xplanner.domain.Note"/>
+          </bean>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <bean id="roleRepository" class="com.technoetic.xplanner.domain.repository.RoleRepositoryImpl" autowire="byName"/>
+  <bean id="roleAssociationRepository" class="com.technoetic.xplanner.domain.repository.RoleAssociationRepositoryImpl" autowire="byName"/>
+
+
+  <!-- ====================================== -->
+  <!-- DOMAIN                                 -->
+  <!-- ====================================== -->
+  <!-- META DATA -->
+  <bean id="metaDataRepository" class="com.technoetic.xplanner.domain.DomainMetaDataRepository" init-method="init"/>
+
+  <!-- ITERATION -->
+  <!-- DEBT(SPRING) To add back dependency check when repositories are fully init from spring-->
+  <bean id="iterationMetrics" class="com.technoetic.xplanner.metrics.IterationMetrics" />
+  <bean id="iterationLoader" class="com.technoetic.xplanner.tags.IterationLoader" autowire="byName" />
+
+  <!-- STORY -->
+  <bean id="moveContinueStory" class="com.technoetic.xplanner.actions.MoveContinueStory" autowire="byName" scope="prototype" />
+  <bean id="storyContinuer" class="com.technoetic.xplanner.actions.StoryContinuer" autowire="byName" scope="prototype" />
+
+  <!-- TASK -->
+  <bean id="taskContinuer" class="com.technoetic.xplanner.actions.TaskContinuer" autowire="byName" scope="prototype" />
+  <bean id="taskRepository" class="com.technoetic.xplanner.domain.repository.TaskRepositoryHibernate"
+        autowire="byName"/>
+  <!-- Prototype (signleton="false") to allow use the fields as query parameters -->
+  <bean id="taskQueryHelper" class="com.technoetic.xplanner.db.TaskQueryHelper" scope="prototype" autowire="byName" />
+  <bean id="taskQuery" class="com.technoetic.xplanner.db.TaskQueryDao" autowire="byName"/>
+
+  <!-- PERSON -->
+  <bean id="editPersonHelper" class="org.springframework.aop.framework.ProxyFactoryBean">
+    <property name="proxyTargetClass" value="true"/>
+    <property name="target">
+      <bean class="com.technoetic.xplanner.actions.EditPersonHelper" autowire="byName"/>
+    </property>
+    <property name="interceptorNames">
+      <list>
+        <value>invalidateCacheAfterPermissionChangedAdvisor</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- WIKI -->
+  <bean id="domainObjectWikiLinkFormatter" class="com.technoetic.xplanner.domain.DomainObjectWikiLinkFormatter"/>
+
+  <!-- SEARCH-->
+  <!-- Prototype (signleton="false") to allow use the fields -->
+  <bean id="searchContentQuery" class="com.technoetic.xplanner.db.SearchContentQuery" scope="prototype" />
+  <bean id="searchResultFactory" class="com.technoetic.xplanner.db.SearchResultFactory">
+    <constructor-arg>
+      <map>
+        <!--  DEBT should use the DomainMetaDataRepository        -->
+        <entry key="net.sf.xplanner.domain.Project" value="project"/>
+        <entry key="net.sf.xplanner.domain.Iteration" value="iteration"/>
+        <entry key="net.sf.xplanner.domain.UserStory" value="userstory"/>
+        <entry key="net.sf.xplanner.domain.Task" value="task"/>
+        <entry key="net.sf.xplanner.domain.Note" value="note"/>
+      </map>
+    </constructor-arg>
+  </bean>
+  <bean id="contentSearchHelper" class="com.technoetic.xplanner.db.ContentSearchHelper" scope="prototype" autowire="byName">
+  	<constructor-arg index="0" ref="searchResultFactory" />
+  	<constructor-arg index="1" ref="searchContentQuery" />
+  </bean>
+
+
+  <!-- IMPORT -->
+  <bean class="com.technoetic.xplanner.importer.spreadsheet.Spreadsheet" autowire="constructor" />
+  <bean class="com.technoetic.xplanner.importer.SpreadsheetStoryFactory" autowire="byType" />
+  <bean class="com.technoetic.xplanner.importer.spreadsheet.SpreadsheetStoryReader" scope="prototype" autowire="constructor" />
+  <bean class="com.technoetic.xplanner.importer.SpreadsheetStoryImporter" scope="prototype" autowire="constructor" />
+
+  <!-- EXPORT -->
+  <bean id="xmlExporter" class="com.technoetic.xplanner.export.XmlExporter"/>
+  <bean id="mpxExporter" class="com.technoetic.xplanner.export.MpxExporter"/>
+  <bean id="mspdiExporter" class="com.technoetic.xplanner.export.MspdiExporter"/>
+  <bean id="pdfExporter" class="com.technoetic.xplanner.export.PdfExporter"/>
+  <bean id="reportExporter" class="com.technoetic.xplanner.export.PdfReportExporter"/>
+
+  <!-- ====================================== -->
+  <!-- UTILITY                                -->
+  <!-- ====================================== -->
+  <bean id="systemInfo" class="com.technoetic.xplanner.SystemInfo" autowire="byName"/>
+  <bean id="timeGenerator" class="com.technoetic.xplanner.util.TimeGenerator"/>
+  <bean class="com.technoetic.xplanner.importer.util.IOStreamFactory" autowire="byType" />
+  <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <!--      <property name="resourceLoaderPath"><value>/WEB-INF/velocity/</value></property>-->
+    <property name="velocityProperties">
+      <props>
+        <prop key="resource.loader">class</prop>
+        <prop key="class.resource.loader.class">
+          org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+        </prop>
+      </props>
+    </property>
+  </bean>
+
+
+  <!-- ATTACHMENT -->
+  <bean id="httpClient" class="com.technoetic.xplanner.util.HttpClient"/>
+  <bean id="virtualFileSystem" class="com.technoetic.xplanner.file.FileSystemImpl"/>
+
+
+  <!--<bean id="taskQuery" class="org.springframework.aop.framework.ProxyFactoryBean">-->
+  <!--<property name="proxyInterfaces">-->
+  <!--<value>com.technoetic.xplanner.db.TaskQuery</value>-->
+  <!--</property>-->
+  <!--<property name="target">-->
+  <!--<ref local="taskQueryTarget"/>-->
+  <!--</property>-->
+  <!--<property name="interceptorNames">-->
+  <!--<list>-->
+  <!--<value>hibernateInterceptor</value>-->
+  <!--</list>-->
+  <!--</property>-->
+  <!--</bean>-->
+
+
+  <!-- ====================================== -->
+  <!-- EMAIL                                  -->
+  <!-- ====================================== -->
+  <bean id="emailFormatter" class="com.technoetic.xplanner.mail.EmailFormatterImpl" autowire="byName"/>
+  <bean id="emailMessageFactory" class="com.technoetic.xplanner.mail.EmailMessageFactory">
+    <constructor-arg>
+      <bean factory-bean="objectRepositoryFactory" factory-method="create">
+        <constructor-arg type="java.lang.Class" value="net.sf.xplanner.domain.Person"/>
+      </bean>
+    </constructor-arg>
+  </bean>
+  <bean id="emailNotificationSupport" class="com.technoetic.xplanner.mail.EmailNotificationSupport"
+        autowire="constructor">
+  </bean>
+  <bean id="missingTimeEntryNotifier" class="com.technoetic.xplanner.mail.MissingTimeEntryNotifier"
+        autowire="constructor">
+    <property name="timeGenerator" ref="timeGenerator"/>
+        </bean>
+
+  <!-- ====================================== -->
+  <!-- DATA SAMPLING                          -->
+  <!-- ====================================== -->
+  <bean id="dataSampler" class="com.technoetic.xplanner.charts.DataSamplerImpl" autowire="byName"/>
+  <bean id="dataSamplingCommand" class="com.technoetic.xplanner.charts.DataSamplingCommand" autowire="byName">
+    <property name="dataSampler"><ref local="txDataSampler"/></property>
+  </bean>
+
+  <bean id="txDataSamplingCommand" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <property name="transactionManager">
+      <ref local="transactionManager"/>
+    </property>
+    <property name="target">
+      <ref local="dataSamplingCommand"/>
+    </property>
+    <property name="proxyTargetClass">
+      <value>true</value>
+    </property>
+    <property name="transactionAttributes">
+      <props>
+        <prop key="execute">PROPAGATION_REQUIRED</prop>
+      </props>
+    </property>
+  </bean>
+
+  <bean id="txDataSampler" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <property name="transactionManager">
+      <ref local="transactionManager"/>
+    </property>
+    <property name="target">
+      <ref local="dataSampler"/>
+    </property>
+    <property name="transactionAttributes">
+      <props>
+        <prop key="saveSamples">PROPAGATION_REQUIRES_NEW</prop>
+        <prop key="extendIterationEndDateIfNeeded">PROPAGATION_REQUIRED</prop>
+      </props>
+    </property>
+  </bean>
+
+  <!-- ====================================== -->
+  <!-- SCHEDULING                             -->
+  <!-- ====================================== -->
+  <bean id="datasamplingJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+    <property name="jobClass">
+      <value>com.technoetic.xplanner.charts.DataSamplingJob</value>
+    </property>
+    <property name="group">
+      <value>xplanner</value>
+    </property>
+    <property name="durability">
+      <value>true</value>
+    </property>
+    <property name="jobDataAsMap">
+      <map>
+        <entry key="dataSamplingCommand">
+          <ref local="txDataSamplingCommand"/>
+        </entry>
+      </map>
+    </property>
+  </bean>
+
+  <task:scheduler id="scheduler" pool-size="10" />
+  <task:executor id="executor" pool-size="10" />
+  
+  <task:scheduled-tasks scheduler="scheduler">
+  	<task:scheduled ref="missingTimeEntryNotifier" method="execute" cron="0 5 0 * * *" />
+  </task:scheduled-tasks>
+
+  <bean id="datasamplingTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail">
+      <ref local="datasamplingJob"/>
+    </property>
+    <property name="cronExpression">
+      <!-- http://www.opensymphony.com/quartz/wikidocs/CronTriggers%20Tutorial.html for more help -->
+      <!-- ?: any value -->
+      <!-- *: all value -->
+      <!--   s m h day-of-month
+                     month
+                          day-of-week
+                          -->
+      <value>0 55 23 ? 1-12 *</value>
+    </property>
+  </bean>
+
+  <!-- <bean id="emailnotificationTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <property name="jobDetail">
+      <ref local="emailnotificationJob"/>
+    </property>
+    <property name="cronExpression">
+      <value>0 0 0 ? 1-12 MON-FRI</value>
+    </property>
+  </bean>
+
+  <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no">
+    <property name="quartzProperties"><ref local="properties"/></property>
+    <property name="triggers">
+      <list>
+        <ref local="datasamplingTrigger"/>
+        <ref local="emailnotificationTrigger"/>
+      </list>
+    </property>
+  </bean> -->
+
+	<bean id="eventBus" class="net.sf.xplanner.events.EventManager" autowire="byType" >
+	
+	</bean>
+	
+	<bean id="daoScanner" class="net.sf.xplanner.util.DaoScanner" init-method="init">
+	</bean>
+	
+	<bean id="objectMapper" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"  scope="singleton">
+		
+	</bean>
+</beans>

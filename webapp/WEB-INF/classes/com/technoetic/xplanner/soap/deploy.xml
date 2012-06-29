@@ -1,0 +1,24 @@
+<deployment xmlns="http://xml.apache.org/axis/wsdd/"
+            xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <service name="XPlanner" provider="java:RPC">
+  <beanMapping qname="ns:ProjectData" xmlns:ns="http://xplanner.org/soap"
+    languageSpecificType="java:com.technoetic.xplanner.soap.client.ProjectData"/>
+  <beanMapping qname="ns:IterationData" xmlns:ns="http://xplanner.org/soap"
+    languageSpecificType="java:com.technoetic.xplanner.soap.client.IterationData"/>
+  <beanMapping qname="ns:UserStoryData" xmlns:ns="http://xplanner.org/soap"
+    languageSpecificType="java:com.technoetic.xplanner.soap.client.UserStoryData"/>
+  <beanMapping qname="ns:TaskData" xmlns:ns="http://xplanner.org/soap"
+    languageSpecificType="java:com.technoetic.xplanner.soap.client.TaskData"/>
+<!--FEATURE:  -->
+<!--  <beanMapping qname="ns:FeatureData" xmlns:ns="http://xplanner.org/soap"-->
+<!--    languageSpecificType="java:com.technoetic.xplanner.soap.client.FeatureData"/>-->
+  <beanMapping qname="ns:TimeEntryData" xmlns:ns="http://xplanner.org/soap"
+    languageSpecificType="java:com.technoetic.xplanner.soap.client.TimeEntryData"/>
+  <beanMapping qname="ns:NoteData" xmlns:ns="http://xplanner.org/soap"
+    languageSpecificType="java:com.technoetic.xplanner.soap.client.NoteData"/>
+  <beanMapping qname="ns:PersonData" xmlns:ns="http://xplanner.org/soap"
+    languageSpecificType="java:com.technoetic.xplanner.soap.client.PersonData"/>
+  <parameter name="className" value="com.technoetic.xplanner.soap.XPlanner"/>
+  <parameter name="allowedMethods" value="*"/>
+ </service>
+</deployment>

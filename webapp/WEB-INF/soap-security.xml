@@ -1,0 +1,45 @@
+<security>
+    <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>XPlanner SOAP Viewing</web-resource-name>
+        <url-pattern>/soap/XPlannerView</url-pattern>
+      </web-resource-collection>
+      <auth-constraint>
+<!--        <role-name>viewer</role-name>-->
+<!--        <role-name>editor</role-name>-->
+<!--        <role-name>admin</role-name>-->
+        <role-name>*</role-name>
+      </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>XPlanner SOAP Editing</web-resource-name>
+        <url-pattern>/soap/XPlannerEdit</url-pattern>
+      </web-resource-collection>
+      <auth-constraint>
+<!--        <role-name>editor</role-name>-->
+<!--        <role-name>admin</role-name>-->
+        <role-name>*</role-name>
+      </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>XPlanner SOAP Admin</web-resource-name>
+        <url-pattern>/soap/*</url-pattern>
+      </web-resource-collection>
+      <auth-constraint>
+<!--        <role-name>admin</role-name>-->
+        <role-name>*</role-name>
+      </auth-constraint>
+    </security-constraint>
+
+    <security-role>
+      <role-name>editor</role-name>
+    </security-role>
+    <security-role>
+      <role-name>viewer</role-name>
+    </security-role>
+    <security-role>
+      <role-name>admin</role-name>
+    </security-role>
+</security>

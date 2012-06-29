@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+
+<table-filter match-name="attribute" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="datasample" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="history" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="identifier" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="integration" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="iteration" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="note" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="notification_receivers" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="patches" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="permission" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="person" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="person_role" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="project" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="role" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="story" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="task" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="time_entry" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="xdir" match-catalog="xplanner"></table-filter>
+	<table-filter match-name="xfile" match-catalog="xplanner"></table-filter>
+	<table catalog="xplanner" name="time_entry"></table>
+	<table catalog="xplanner" name="permission"></table>
+	<table catalog="xplanner" name="iteration"></table>
+	<table catalog="xplanner" name="identifier"></table>
+	<table catalog="xplanner" name="person_role"></table>
+	<table catalog="xplanner" name="datasample"></table>
+	<table catalog="xplanner" name="history"></table>
+	<table catalog="xplanner" name="attribute"></table>
+	<table catalog="xplanner" name="task"></table>
+	<table catalog="xplanner" name="person"></table>
+	<table catalog="xplanner" name="xfile"></table>
+	<table catalog="xplanner" name="patches"></table>
+	<table catalog="xplanner" name="xdir"></table>
+	<table catalog="xplanner" name="project"></table>
+	<table catalog="xplanner" name="story"></table>
+	<table catalog="xplanner" name="integration"></table>
+	<table catalog="xplanner" name="notification_receivers"></table>
+	<table catalog="xplanner" name="note"></table>
+	<table catalog="xplanner" name="role"></table>
+</hibernate-reverse-engineering>

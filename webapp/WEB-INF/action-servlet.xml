@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans default-autowire="byName" default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean name="/changeLocale" class="com.technoetic.xplanner.actions.ChangeLocaleAction" />
+	
+	<bean name="/systemInfo" class="com.technoetic.xplanner.actions.SystemInfoAction" />
+
+	<bean name="/login" class="com.technoetic.xplanner.actions.AuthenticationAction" />
+
+	<bean name="/notAuthorized" class="com.technoetic.xplanner.actions.DispatchForward">
+		<property name="authorizationRequired" value="false" />
+	</bean>
+
+	<bean name="/logout" class="com.technoetic.xplanner.actions.LogoutAction" />
+
+	<!--
+		<bean name="/logout" parameter="security/logout"
+		class="com.technoetic.xplanner.actions.DispatchForward"> <bean>
+		<property name="authorizationRequired"> <value>false</value>
+		</property> </bean> </bean>
+	-->
+
+	<bean name="/view/twikiformat" class="com.technoetic.xplanner.actions.DispatchForward">
+		<property name="authorizationRequired" value="false" />
+	</bean>
+
+	<bean name="/view/projects" class="com.technoetic.xplanner.actions.DispatchForward">
+		<property name="authorizationRequired" value="false" />
+	</bean>
+
+	<bean name="/view/project" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Project</value>
+		</property>
+	</bean>
+
+	<bean name="/view/project/features" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Project</value>
+		</property>
+	</bean>
+
+	<bean name="/export/project/xml" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Project</value>
+		</property>
+		<property name="exporter">
+			<ref bean="xmlExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/export/project/mpx" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Project</value>
+		</property>
+		<property name="exporter">
+			<ref bean="mpxExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/export/project/mspdi" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Project</value>
+		</property>
+		<property name="exporter">
+			<ref bean="mspdiExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/edit/project" class="com.technoetic.xplanner.actions.EditProjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Project</value>
+		</property>
+	</bean>
+
+	<bean name="/delete/project" class="com.technoetic.xplanner.actions.DeleteObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Project</value>
+		</property>
+	</bean>
+
+	<bean name="/view/iterationTabs" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/view/iteration" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/view/feature" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Feature</value>
+		</property>
+	</bean>
+
+	<bean name="/view/iteration/tasks" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/view/iteration/features" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/view/iteration/metrics" class="com.technoetic.xplanner.actions.ViewIterationMetricsAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/view/iteration/statistics" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/view/iteration/accuracy" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/export/iteration/xml" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+		<property name="exporter">
+			<ref bean="xmlExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/export/iteration/mpx" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+		<property name="exporter">
+			<ref bean="mpxExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/export/iteration/mspdi" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+		<property name="exporter">
+			<ref bean="mspdiExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/export/iteration/pdf" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+		<property name="exporter">
+			<ref bean="pdfExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/export/iteration/jrpdf" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+		<property name="exporter">
+			<ref bean="reportExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/edit/iteration" class="com.technoetic.xplanner.actions.EditIterationAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/start/iteration" class="com.technoetic.xplanner.actions.StartIterationAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<!-- DEBT: Why having the editIterationStatus.jsp for close?-->
+	<bean name="/close/iteration" class="com.technoetic.xplanner.actions.CloseIterationAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/delete/iteration" class="com.technoetic.xplanner.actions.DeleteObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/edit/feature" class="com.technoetic.xplanner.actions.EditObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Feature</value>
+		</property>
+	</bean>
+
+	<bean name="/delete/feature" class="com.technoetic.xplanner.actions.DeleteObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Feature</value>
+		</property>
+	</bean>
+
+	<bean name="/view/userstory" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.UserStory</value>
+		</property>
+	</bean>
+
+	<bean name="/edit/userstory" class="com.technoetic.xplanner.actions.EditStoryAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.UserStory</value>
+		</property>
+	</bean>
+
+	<bean name="/move/continue/userstory" class="com.technoetic.xplanner.actions.MoveContinueStoryAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.UserStory</value>
+		</property>
+	</bean>
+
+	<bean name="/continue/unfinished/stories" class="com.technoetic.xplanner.actions.ContinueUnfinishedStoriesAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/export/userstory/pdf" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.UserStory</value>
+		</property>
+		<property name="exporter">
+			<ref bean="pdfExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/export/userstory/jrpdf" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.UserStory</value>
+		</property>
+		<property name="exporter">
+			<ref bean="reportExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/delete/userstory" class="com.technoetic.xplanner.actions.DeleteObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.UserStory</value>
+		</property>
+	</bean>
+
+	<bean name="/view/task" class="com.technoetic.xplanner.actions.ViewObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Task</value>
+		</property>
+	</bean>
+
+	<bean name="/edit/task" class="com.technoetic.xplanner.actions.EditTaskAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Task</value>
+		</property>
+	</bean>
+
+	<bean name="/move/continue/task" class="com.technoetic.xplanner.actions.MoveContinueTaskAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Task</value>
+		</property>
+	</bean>
+
+	<bean name="/export/task/pdf" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Task</value>
+		</property>
+		<property name="exporter">
+			<ref bean="pdfExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/export/task/jrpdf" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Task</value>
+		</property>
+		<property name="exporter">
+			<ref bean="reportExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/edit/task/estimate" class="org.apache.struts.action.Action" />
+
+	<bean name="/delete/task" class="com.technoetic.xplanner.actions.DeleteObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Task</value>
+		</property>
+	</bean>
+
+	<bean name="/edit/note" class="com.technoetic.xplanner.actions.EditNoteAction">
+		<property name="fileSystem">
+			<ref bean="virtualFileSystem"></ref>
+		</property>
+		<property name="type">
+			<value>net.sf.xplanner.domain.Note</value>
+		</property>
+	</bean>
+
+	<bean name="/delete/note" class="com.technoetic.xplanner.actions.DeleteNoteAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Note</value>
+		</property>
+	</bean>
+
+	<bean name="/download/attachment" class="com.technoetic.xplanner.actions.DownloadAttachmentAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Note</value>
+		</property>
+	</bean>
+
+	<bean name="/view/people" class="com.technoetic.xplanner.actions.DispatchForward">
+		<property name="authorizationRequired">
+			<value>false</value>
+		</property>
+	</bean>
+
+	<bean name="/export/person/jrpdf" class="com.technoetic.xplanner.actions.ExportAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Person</value>
+		</property>
+		<property name="exporter">
+			<ref bean="reportExporter"></ref>
+		</property>
+	</bean>
+
+	<bean name="/view/person" class="com.technoetic.xplanner.actions.ViewPersonAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Person</value>
+		</property>
+		<!-- todo tune authorization so people can see their own profile -->
+		<property name="authorizationRequired">
+			<value>false</value>
+		</property>
+	</bean>
+
+	<bean name="/edit/person" class="com.technoetic.xplanner.actions.EditPersonAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Person</value>
+		</property>
+	</bean>
+
+	<!--      Todo Move importPeople.jsp to import/people.jsp-->
+	<bean name="/import/people" class="com.technoetic.xplanner.actions.ImportPeopleAction" />
+
+	<bean name="/import/stories" class="com.technoetic.xplanner.actions.ImportStoriesAction">
+		<property name="importer">
+			<ref bean="com.technoetic.xplanner.importer.SpreadsheetStoryImporter" />
+		</property>
+		<property name="type">
+			<value>net.sf.xplanner.domain.Iteration</value>
+		</property>
+	</bean>
+
+	<bean name="/delete/person" class="com.technoetic.xplanner.actions.DeleteObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Person</value>
+		</property>
+	</bean>
+
+	<bean name="/edit/time" class="com.technoetic.xplanner.actions.UpdateTimeAction" >
+	   <property name="taskDao" ref="taskDao" />
+	</bean>
+
+	<bean name="/edit/reorderstories" class="com.technoetic.xplanner.actions.ReorderStoriesAction" />
+
+	<bean name="/move/userstories" class="com.technoetic.xplanner.actions.MoveStoriesAction" />
+
+	<bean name="/edit/project/notification" class="com.technoetic.xplanner.actions.UpdateTimeNotificationReceivers" />
+
+	<bean name="/view/timesheet" class="com.technoetic.xplanner.actions.ViewTimesheetAction" />
+
+	<bean name="/view/aggregateTimesheet" class="com.technoetic.xplanner.actions.ViewAggregateTimesheetAction" />
+
+	<bean name="/view/integrations" class="com.technoetic.xplanner.actions.DispatchForward" />
+
+	<bean name="/edit/integrations" class="com.technoetic.xplanner.actions.IntegrationAction" init-method="init" />
+
+	<bean name="/view/history" class="com.technoetic.xplanner.actions.ViewObjectAction" />
+
+	<bean name="/view/directory" class="com.technoetic.xplanner.actions.FileManagerAction" />
+
+	<bean name="/admin/reload-tiles" class="org.apache.struts.tiles.actions.ReloadDefinitionsAction" />
+
+	<bean name="/edit/roles" class="com.technoetic.xplanner.actions.EditRoleAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Project</value>
+		</property>
+	</bean>
+
+	<bean name="/search/id" class="com.technoetic.xplanner.actions.IdSearchAction" >
+		<property name="idSearchHelper" ref="idSearchHelper" />
+	</bean>
+
+	<bean name="/search/content" class="com.technoetic.xplanner.actions.ContentSearchAction" />
+
+  <bean name="/view/settings" class="com.technoetic.xplanner.actions.DispatchForward">
+    <property name="authorizationRequired" value="false" />
+  </bean>
+	
+	<bean name="/view/dashboard" class="com.technoetic.xplanner.actions.DispatchForward" >
+		<property name="authorizationRequired" value="false" />
+	</bean>
+	
+	<bean name="/edit/setting" class="com.technoetic.xplanner.actions.EditObjectAction">
+		<property name="type">
+			<value>net.sf.xplanner.domain.Setting</value>
+		</property>
+	</bean>
+</beans>

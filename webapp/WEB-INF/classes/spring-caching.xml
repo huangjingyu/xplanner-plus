@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+  <description>XPLanner Cache AOP Advisors</description>
+
+  <bean id="resultByArgsByMethodName" class="java.util.HashMap"/>
+
+  <bean id="permissionCacheAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+    <property name="advice">
+      <bean class="com.technoetic.xplanner.db.MethodCacheInterceptor">
+        <constructor-arg><ref local="resultByArgsByMethodName"/></constructor-arg>
+      </bean>
+    </property>
+    <property name="mappedNames">
+      <list>
+        <value>getAllPermissions</value>
+        <value>getAllPermissionsToPerson</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="personPermissionCacheAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+    <property name="advice">
+      <bean class="com.technoetic.xplanner.db.MethodCacheInterceptor">
+        <constructor-arg><ref local="resultByArgsByMethodName"/></constructor-arg>
+      </bean>
+    </property>
+    <property name="mappedName">
+      <value>getPermissionsForPrincipal</value>
+    </property>
+  </bean>
+
+  <bean id="invalidateCacheAfterLogoutAdvisor"
+        class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+    <property name="advice">
+      <bean class="com.technoetic.xplanner.db.MethodCacheInvalidateForSelectedArgumentsInterceptor">
+        <constructor-arg><ref local="resultByArgsByMethodName"/></constructor-arg>
+        <property name="methodsToInvalidate">
+          <list>
+            <value>getPermissionsForPrincipal</value>
+          </list>
+        </property>
+        <property name="argumentIndexes">
+          <list>
+            <value>1</value>
+          </list>
+        </property>
+      </bean>
+    </property>
+    <property name="mappedName">
+      <value>logout</value>
+    </property>
+  </bean>
+
+  <bean id="invalidateCacheAfterPermissionChangedAdvisor"
+        class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+    <property name="advice">
+      <bean class="com.technoetic.xplanner.db.CacheInvalidateForPersonAnywhereInAttrListInterceptor">
+        <constructor-arg><ref local="resultByArgsByMethodName"/></constructor-arg>
+        <property name="methodsToInvalidate">
+          <list>
+            <value>getPermissionsForPrincipal</value>
+            <value>getAllPermissions</value>
+            <value>getAllPermissionsToPerson</value>
+          </list>
+        </property>
+      </bean>
+    </property>
+    <property name="mappedName">
+      <value>modifyRoles</value>
+    </property>
+  </bean>
+</beans>
